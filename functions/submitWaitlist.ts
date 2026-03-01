@@ -5,7 +5,7 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const body = await req.json();
 
-    const { full_name, email, monthly_income, occupation, already_invests, main_goal, wants_early_access } = body;
+    const { full_name, email, whatsapp, monthly_income, occupation, already_invests, main_goal, wants_early_access } = body;
 
     if (!full_name || !email) {
       return Response.json({ error: 'Nome e e-mail são obrigatórios.' }, { status: 400 });
@@ -14,6 +14,7 @@ Deno.serve(async (req) => {
     const entry = await base44.asServiceRole.entities.WaitlistEntry.create({
       full_name,
       email,
+      whatsapp,
       monthly_income,
       occupation,
       already_invests,

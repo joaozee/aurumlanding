@@ -3,19 +3,22 @@ import { useLocation } from "react-router-dom";
 
 const META = {
   Home: {
-    title: "Aurum — Organize suas finanças e invista com inteligência",
+    title: "Aurum — App de Finanças Pessoais e Investimentos | Lista de Espera",
     description:
-      "Aurum é o app que vai organizar suas finanças e guiar seus investimentos com inteligência, tudo em um só lugar. Entre para a lista de espera e garanta acesso antecipado.",
+      "Aurum é o app brasileiro de finanças pessoais e investimentos que organiza seu dinheiro e guia seus investimentos com inteligência. Entre na lista de espera e garanta acesso antecipado e benefícios exclusivos.",
+    keywords: "app financeiro, finanças pessoais, investimentos, controle financeiro, liberdade financeira, app de investimentos, gestão financeira, lista de espera",
   },
   Obrigado: {
-    title: "Obrigado! Você está na lista — Aurum",
+    title: "Cadastro Confirmado — Você está na lista de espera do Aurum",
     description:
-      "Você entrou para a lista de espera do Aurum. Em breve você receberá novidades e acesso antecipado ao app.",
+      "Parabéns! Você garantiu seu lugar na lista de espera do Aurum. Fique atento ao seu e-mail para receber acesso antecipado e benefícios exclusivos do app de finanças.",
+    keywords: "aurum app, lista de espera, acesso antecipado, finanças pessoais",
   },
   default: {
-    title: "Aurum — Finanças Pessoais e Investimentos",
+    title: "Aurum — Finanças Pessoais e Investimentos Inteligentes",
     description:
-      "Construa sua liberdade financeira com clareza e segurança usando o Aurum.",
+      "Construa sua liberdade financeira com clareza e segurança usando o Aurum, o app de finanças pessoais e investimentos.",
+    keywords: "aurum, finanças pessoais, investimentos, app financeiro",
   },
 };
 

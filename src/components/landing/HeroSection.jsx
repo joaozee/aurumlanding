@@ -14,9 +14,9 @@ export default function HeroSection({ onCTAClick }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-16"
+        className="mt-20 mb-10"
       >
-        <AurumLogo className="h-16 md:h-20" />
+        <AurumLogo className="h-20 md:h-28" />
       </motion.div>
 
       {/* Badge */}

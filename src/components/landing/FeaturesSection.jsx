@@ -4,29 +4,29 @@ import { useRef } from "react";
 
 const features = [
   {
-    icon: "◈",
-    title: "Organização Financeira Real",
-    description: "Visual limpo, automático e inteligente. Você sabe para onde seu dinheiro vai, sem esforço.",
+    icon: "📊",
+    title: "Finanças",
+    description: "Controle completo com carteiras separadas para pessoa física e empresa. Visualize receitas, despesas e evolução patrimonial em um só lugar.",
   },
   {
-    icon: "◉",
-    title: "Plano de Investimentos Personalizado",
-    description: "Com base em renda, risco e metas. Nada de receitas prontas. Estratégia real para o seu perfil.",
+    icon: "💼",
+    title: "Carteira",
+    description: "Acompanhe todos os seus investimentos consolidados. Veja o desempenho de cada ativo, alocação por classe e rentabilidade real.",
   },
   {
-    icon: "◎",
-    title: "Evolução Mensal",
-    description: "Gráficos, alertas e indicadores que mostram para onde você está caminhando mês a mês.",
+    icon: "🎓",
+    title: "Cursos",
+    description: "Conteúdos educacionais de qualidade. Alguns gratuitos com a assinatura do app e outros pagos para quem quer ir mais fundo.",
   },
   {
-    icon: "◇",
-    title: "Conteúdo Direto ao Ponto",
-    description: "Explicações simples para que você realmente entenda onde está colocando seu dinheiro.",
+    icon: "📱",
+    title: "Comunidade",
+    description: "O Instagram dos investimentos. Poste, crie grupos, troque mensagens e acompanhe notícias e conteúdos do mercado em tempo real.",
   },
   {
-    icon: "◆",
-    title: "Comunidade Aurum",
-    description: "Aprenda com outras pessoas e evolua junto, sem achismos, com dados e resultados reais.",
+    icon: "📈",
+    title: "Ações",
+    description: "Consulte cotações, gráficos históricos e todos os detalhes de qualquer ativo do mercado. Tudo que você precisa para tomar boas decisões.",
   },
 ];
 

@@ -146,7 +146,7 @@ export default function WaitlistForm({ formRef }) {
       return;
     }
 
-    window.location.href = createPageUrl("Obrigado");
+    navigate(createPageUrl("Obrigado"));
   };
 
   return (

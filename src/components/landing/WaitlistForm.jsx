@@ -196,7 +196,7 @@ export default function WaitlistForm({ formRef }) {
           {/* WhatsApp */}
           <div className="space-y-2">
             <label className="text-[#BFBFBF] text-sm font-medium block">
-              WhatsApp <span className="text-[#BFBFBF]/40 text-xs font-normal">(opcional)</span>
+              WhatsApp
             </label>
             <input
               type="tel"

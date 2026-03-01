@@ -42,14 +42,19 @@ export default function Layout({ children, currentPageName }) {
     };
 
     setMeta("description", meta.description);
+    setMeta("keywords", meta.keywords || "");
     setMeta("robots", "index, follow");
+    setMeta("author", "Aurum");
     setMeta("og:title", meta.title, "property");
     setMeta("og:description", meta.description, "property");
     setMeta("og:type", "website", "property");
     setMeta("og:locale", "pt_BR", "property");
+    setMeta("og:site_name", "Aurum", "property");
+    setMeta("og:image", "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg", "property");
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", meta.title);
     setMeta("twitter:description", meta.description);
+    setMeta("twitter:image", "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg");
 
     // Canonical
     let canonical = document.querySelector('link[rel="canonical"]');

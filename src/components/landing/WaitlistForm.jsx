@@ -192,6 +192,20 @@ export default function WaitlistForm({ formRef }) {
             {errors.full_name && <p className="text-red-400 text-xs">{errors.full_name}</p>}
           </div>
 
+          {/* WhatsApp */}
+          <div className="space-y-2">
+            <label className="text-[#BFBFBF] text-sm font-medium block">
+              WhatsApp <span className="text-[#BFBFBF]/40 text-xs font-normal">(opcional)</span>
+            </label>
+            <input
+              type="tel"
+              value={form.whatsapp}
+              onChange={(e) => set("whatsapp")(e.target.value)}
+              placeholder="(11) 99999-9999"
+              className="w-full bg-[#1C1C1C] border border-white/10 text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+            />
+          </div>
+
           {/* Email */}
           <div className="space-y-2" data-error={!!errors.email}>
             <label className="text-[#BFBFBF] text-sm font-medium block">

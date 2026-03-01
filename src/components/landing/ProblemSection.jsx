@@ -6,7 +6,7 @@ const problems = [
   "Não sabe para onde o dinheiro vai todo mês",
   "Não consegue guardar o suficiente para o futuro",
   "Tem medo de investir por falta de clareza",
-  "Sente que está sempre no "modo sobrevivência"",
+  "Sente que está sempre no 'modo sobrevivência'",
 ];
 
 export default function ProblemSection() {

@@ -44,11 +44,12 @@ const GOAL_OPTIONS = [
 function RadioGroup({ label, options, value, onChange, error }) {
   return (
     <div className="space-y-3">
-      <label className="text-[#BFBFBF] text-sm font-medium block">{label}</label>
+      <p className="text-[#BFBFBF] text-sm font-medium">{label}</p>
       <div className="grid gap-2">
         {options.map((opt) => (
           <label
             key={opt}
+            onClick={() => onChange(opt)}
             className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all duration-200 ${
               value === opt
                 ? "border-[#D4AF37] bg-[#D4AF37]/10 text-white"

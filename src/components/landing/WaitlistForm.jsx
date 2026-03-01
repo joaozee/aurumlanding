@@ -127,7 +127,7 @@ export default function WaitlistForm({ formRef }) {
       ? `Outro: ${form.occupation_other}`
       : form.occupation;
 
-    await base44.entities.WaitlistEntry.create({
+    const response = await base44.functions.invoke("submitWaitlist", {
       full_name: form.full_name,
       email: form.email,
       monthly_income: form.monthly_income,
@@ -136,6 +136,13 @@ export default function WaitlistForm({ formRef }) {
       main_goal: form.main_goal,
       wants_early_access: form.wants_early_access === "Sim",
     });
+
+    if (response.data?.error) {
+      setErrors({ form: response.data.error });
+      setStatus("idle");
+      return;
+    }
+
     window.location.href = createPageUrl("Obrigado");
   };
 

@@ -6,6 +6,7 @@ import AudienceSection from "../components/landing/AudienceSection";
 import CTABanner from "../components/landing/CTABanner";
 import WaitlistForm from "../components/landing/WaitlistForm";
 import FooterSection from "../components/landing/FooterSection";
+import NavBar from "../components/landing/NavBar";
 
 export default function Home() {
   const formRef = useRef(null);
@@ -16,10 +17,11 @@ export default function Home() {
 
   return (
     <div className="bg-black min-h-screen font-sans antialiased">
+      <NavBar onCTAClick={scrollToForm} />
       <HeroSection onCTAClick={scrollToForm} />
       <ProblemSection />
-      <FeaturesSection />
-      <AudienceSection />
+      <div id="features"><FeaturesSection /></div>
+      <div id="audience"><AudienceSection /></div>
       <CTABanner onCTAClick={scrollToForm} />
       <WaitlistForm formRef={formRef} />
       <FooterSection />

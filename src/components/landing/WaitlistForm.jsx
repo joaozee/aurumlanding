@@ -132,6 +132,7 @@ export default function WaitlistForm({ formRef }) {
     const response = await base44.functions.invoke("submitWaitlist", {
       full_name: form.full_name,
       email: form.email,
+      whatsapp: form.whatsapp,
       monthly_income: form.monthly_income,
       occupation: occupationValue,
       already_invests: form.already_invests,

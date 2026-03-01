@@ -1,79 +1,95 @@
 import { motion } from "framer-motion";
 import { createPageUrl } from "@/utils";
-import AurumLogo from "../components/landing/AurumLogo";
 
 export default function Obrigado() {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#D4AF37]/8 blur-[120px] rounded-full pointer-events-none" />
+      {/* Background glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#D4AF37]/6 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[#D4AF37]/4 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Logo */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute top-8 left-1/2 -translate-x-1/2"
-      >
-        <AurumLogo className="h-10" />
-      </motion.div>
+      <div className="relative max-w-2xl w-full flex flex-col items-center text-center">
 
-      <div className="relative max-w-2xl w-full text-center">
-        {/* Check icon */}
+        {/* Logo grande */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+          className="mb-10"
+        >
+          <img
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg"
+            alt="Aurum"
+            className="h-24 md:h-32 w-auto object-contain"
+          />
+        </motion.div>
+
+        {/* Check badge */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
-          className="w-20 h-20 rounded-full border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-8"
+          transition={{ duration: 0.5, type: "spring", bounce: 0.4, delay: 0.2 }}
+          className="w-14 h-14 rounded-full border-2 border-[#D4AF37] bg-[#D4AF37]/10 flex items-center justify-center mb-8"
         >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-[#D4AF37] text-3xl"
-          >
-            ✓
-          </motion.span>
+          <svg className="w-6 h-6 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6"
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="text-4xl md:text-5xl font-bold text-white leading-tight mb-3"
         >
-          Bem-vindo à nova era<br />
-          <span className="text-[#D4AF37]">das finanças pessoais.</span>
+          Bem-vindo à nova era
         </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="text-4xl md:text-5xl font-bold text-[#D4AF37] leading-tight mb-10"
+        >
+          das finanças pessoais.
+        </motion.p>
 
-        {/* Message */}
+        {/* Message card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-[#0E0E0E] border border-[#D4AF37]/20 rounded-3xl p-8 md:p-10 space-y-4 text-left"
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="w-full bg-[#0E0E0E] border border-[#D4AF37]/15 rounded-3xl p-8 md:p-10 space-y-5 text-left mb-10"
         >
-          <p className="text-[#BFBFBF] text-base leading-relaxed">
-            🎉 <span className="text-white font-medium">Você está na lista!</span> Obrigado por entrar para a lista de espera do Aurum.
-          </p>
-          <p className="text-[#BFBFBF] text-base leading-relaxed">
-            Você está dando o primeiro passo para transformar sua vida financeira com <span className="text-[#D4AF37]">clareza</span>, <span className="text-[#D4AF37]">estratégia</span> e <span className="text-[#D4AF37]">inteligência</span>.
-          </p>
-          <p className="text-[#BFBFBF] text-base leading-relaxed">
-            📬 Fique de olho no seu e-mail: quando o Aurum for lançado, você será um dos primeiros a saber e terá acesso a <span className="text-white font-medium">benefícios exclusivos</span>.
-          </p>
+          <div className="flex items-start gap-4">
+            <div className="w-1 h-full min-h-[1.5rem] bg-[#D4AF37] rounded-full flex-shrink-0 mt-1" />
+            <p className="text-[#BFBFBF] text-base leading-relaxed">
+              <span className="text-white font-semibold">Você está na lista!</span> Obrigado por entrar para a lista de espera do Aurum.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="w-1 h-full min-h-[1.5rem] bg-[#D4AF37]/40 rounded-full flex-shrink-0 mt-1" />
+            <p className="text-[#BFBFBF] text-base leading-relaxed">
+              Você está dando o primeiro passo para transformar sua vida financeira com <span className="text-[#D4AF37]">clareza</span>, <span className="text-[#D4AF37]">estratégia</span> e <span className="text-[#D4AF37]">inteligência</span>.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="w-1 h-full min-h-[1.5rem] bg-[#D4AF37]/40 rounded-full flex-shrink-0 mt-1" />
+            <p className="text-[#BFBFBF] text-base leading-relaxed">
+              Fique de olho no seu e-mail: quando o Aurum for lançado, você será um dos primeiros a saber e terá acesso a <span className="text-white font-semibold">benefícios exclusivos</span>.
+            </p>
+          </div>
         </motion.div>
 
         {/* Divider */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="my-8 flex items-center gap-4"
+          transition={{ delay: 0.75 }}
+          className="w-full flex items-center gap-4 mb-8"
         >
           <div className="flex-1 h-px bg-white/5" />
-          <span className="text-[#BFBFBF]/40 text-xs tracking-widest uppercase">Enquanto isso</span>
+          <span className="text-[#BFBFBF]/30 text-xs tracking-widest uppercase">Enquanto isso</span>
           <div className="flex-1 h-px bg-white/5" />
         </motion.div>
 
@@ -81,11 +97,11 @@ export default function Obrigado() {
         <motion.a
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
+          transition={{ delay: 0.85 }}
           href={createPageUrl("Home")}
-          className="inline-block text-[#D4AF37] border border-[#D4AF37]/30 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 text-sm font-medium px-8 py-3 rounded-full transition-all duration-300"
+          className="inline-block bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-sm px-10 py-3.5 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:scale-105"
         >
-          ← Voltar para a página inicial
+          Voltar para a página inicial
         </motion.a>
       </div>
     </div>

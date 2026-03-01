@@ -66,24 +66,7 @@ export default function HeroSection({ onCTAClick }) {
         Quero entrar na lista de espera →
       </motion.button>
 
-      {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-        className="mt-20 flex gap-12 md:gap-20"
-      >
-        {[
-          { value: "100%", label: "Gratuito no lançamento" },
-          { value: "1 lugar", label: "Para suas finanças" },
-          { value: "∞", label: "Possibilidades" },
-        ].map((stat) => (
-          <div key={stat.label} className="text-center">
-            <p className="text-[#D4AF37] text-2xl font-bold">{stat.value}</p>
-            <p className="text-[#BFBFBF] text-xs mt-1 tracking-wide">{stat.label}</p>
-          </div>
-        ))}
-      </motion.div>
+
 
       {/* Scroll indicator */}
       <motion.div

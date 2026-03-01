@@ -1,33 +1,77 @@
-import { useState, forwardRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { createPageUrl } from "@/utils";
 
-const RadioGroup = ({ label, options, value, onChange }) => (
-  <div className="space-y-3">
-    <label className="text-[#BFBFBF] text-sm font-medium block">{label}</label>
-    <div className="grid gap-2">
-      {options.map((opt) => (
-        <label
-          key={opt}
-          className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all duration-200 ${
-            value === opt
-              ? "border-[#D4AF37] bg-[#D4AF37]/10 text-white"
-              : "border-white/10 bg-[#1C1C1C] text-[#BFBFBF] hover:border-white/20"
-          }`}
-        >
-          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-            value === opt ? "border-[#D4AF37]" : "border-white/30"
-          }`}>
-            {value === opt && <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />}
-          </div>
-          <span className="text-sm">{opt}</span>
-        </label>
-      ))}
+const INCOME_OPTIONS = [
+  "Até R$ 2.500",
+  "R$ 2.501 a R$ 5.000",
+  "R$ 5.001 a R$ 10.000",
+  "R$ 10.001 a R$ 20.000",
+  "R$ 20.001 a R$ 50.000",
+  "R$ 50.001 a R$ 100.000",
+  "Acima de R$ 100.000",
+];
+
+const OCCUPATION_OPTIONS = [
+  "CLT (carteira assinada)",
+  "Servidor público",
+  "Autônomo",
+  "Profissional liberal (advogado, médico, contador etc.)",
+  "Empresário / Sócio de empresa",
+  "Aposentado / Pensionista",
+  "Estudante",
+  "Desempregado",
+  "Outro",
+];
+
+const INVEST_OPTIONS = [
+  "Sim, com consistência",
+  "Sim, mas ainda sinto insegurança",
+  "Não, mas quero começar",
+  "Não",
+];
+
+const GOAL_OPTIONS = [
+  "Organizar minhas finanças",
+  "Começar a investir",
+  "Melhorar meus investimentos",
+  "Conquistar liberdade financeira",
+];
+
+function RadioGroup({ label, options, value, onChange, error }) {
+  return (
+    <div className="space-y-3">
+      <label className="text-[#BFBFBF] text-sm font-medium block">{label}</label>
+      <div className="grid gap-2">
+        {options.map((opt) => (
+          <label
+            key={opt}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all duration-200 ${
+              value === opt
+                ? "border-[#D4AF37] bg-[#D4AF37]/10 text-white"
+                : "border-white/10 bg-[#1C1C1C] text-[#BFBFBF] hover:border-white/20"
+            }`}
+          >
+            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+              value === opt ? "border-[#D4AF37]" : "border-white/30"
+            }`}>
+              {value === opt && <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />}
+            </div>
+            <span className="text-sm">{opt}</span>
+          </label>
+        ))}
+      </div>
+      {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
     </div>
-  </div>
-);
+  );
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export default function WaitlistForm({ formRef }) {
   const sectionRef = useRef(null);
@@ -37,24 +81,63 @@ export default function WaitlistForm({ formRef }) {
     full_name: "",
     email: "",
     monthly_income: "",
+    occupation: "",
+    occupation_other: "",
     already_invests: "",
     main_goal: "",
     wants_early_access: null,
   });
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle");
+
+  const set = (field) => (val) => {
+    setForm((prev) => ({ ...prev, [field]: val }));
+    setErrors((prev) => ({ ...prev, [field]: null }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!form.full_name.trim()) newErrors.full_name = "Nome obrigatório.";
+    if (!form.email.trim()) {
+      newErrors.email = "E-mail obrigatório.";
+    } else if (!validateEmail(form.email)) {
+      newErrors.email = "Formato de e-mail inválido.";
+    }
+    if (!form.monthly_income) newErrors.monthly_income = "Selecione sua faixa de renda.";
+    if (!form.occupation) newErrors.occupation = "Selecione sua ocupação.";
+    if (!form.already_invests) newErrors.already_invests = "Selecione uma opção.";
+    if (!form.main_goal) newErrors.main_goal = "Selecione seu objetivo.";
+    if (form.wants_early_access === null) newErrors.wants_early_access = "Selecione uma opção.";
+    return newErrors;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.email) return;
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      // Scroll to first error
+      const firstErrorEl = document.querySelector("[data-error='true']");
+      if (firstErrorEl) firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     setStatus("loading");
+    const occupationValue = form.occupation === "Outro" && form.occupation_other
+      ? `Outro: ${form.occupation_other}`
+      : form.occupation;
+
     await base44.entities.WaitlistEntry.create({
-      ...form,
+      full_name: form.full_name,
+      email: form.email,
+      monthly_income: form.monthly_income,
+      occupation: occupationValue,
+      already_invests: form.already_invests,
+      main_goal: form.main_goal,
       wants_early_access: form.wants_early_access === "Sim",
     });
-    setStatus("success");
+    window.location.href = createPageUrl("Obrigado");
   };
-
-  const set = (field) => (val) => setForm((prev) => ({ ...prev, [field]: val }));
 
   return (
     <section ref={sectionRef} id="waitlist-form" className="bg-black py-28 px-6">
@@ -75,91 +158,127 @@ export default function WaitlistForm({ formRef }) {
           </p>
         </motion.div>
 
-        {status === "success" ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0E0E0E] border border-[#D4AF37]/30 rounded-3xl p-12 text-center"
-          >
-            <div className="w-16 h-16 rounded-full border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-6">
-              <span className="text-[#D4AF37] text-2xl">✓</span>
-            </div>
-            <h3 className="text-white text-2xl font-bold mb-3">Bem-vindo à nova era das finanças pessoais.</h3>
-            <p className="text-[#BFBFBF] leading-relaxed">
-              Obrigado por entrar para a lista de espera.<br />
-              Você está dando o primeiro passo para transformar sua vida financeira com clareza, estratégia e inteligência.
-            </p>
-          </motion.div>
-        ) : (
-          <motion.form
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 md:p-10 space-y-8"
-          >
-            {/* Name */}
-            <div className="space-y-2">
-              <label className="text-[#BFBFBF] text-sm font-medium block">Nome completo</label>
-              <input
-                type="text"
-                value={form.full_name}
-                onChange={(e) => set("full_name")(e.target.value)}
-                placeholder="Seu nome"
-                className="w-full bg-[#1C1C1C] border border-white/10 text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
-              />
-            </div>
+        <motion.form
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          onSubmit={handleSubmit}
+          noValidate
+          className="bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 md:p-10 space-y-8"
+        >
+          {/* Name */}
+          <div className="space-y-2" data-error={!!errors.full_name}>
+            <label className="text-[#BFBFBF] text-sm font-medium block">
+              Nome completo <span className="text-[#D4AF37]">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.full_name}
+              onChange={(e) => set("full_name")(e.target.value)}
+              placeholder="Seu nome completo"
+              className={`w-full bg-[#1C1C1C] border text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none transition-colors ${
+                errors.full_name ? "border-red-500/60 focus:border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"
+              }`}
+            />
+            {errors.full_name && <p className="text-red-400 text-xs">{errors.full_name}</p>}
+          </div>
 
-            {/* Email */}
-            <div className="space-y-2">
-              <label className="text-[#BFBFBF] text-sm font-medium block">E-mail <span className="text-[#D4AF37]">*</span></label>
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => set("email")(e.target.value)}
-                placeholder="seu@email.com"
-                className="w-full bg-[#1C1C1C] border border-white/10 text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
-              />
-            </div>
+          {/* Email */}
+          <div className="space-y-2" data-error={!!errors.email}>
+            <label className="text-[#BFBFBF] text-sm font-medium block">
+              E-mail <span className="text-[#D4AF37]">*</span>
+            </label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => set("email")(e.target.value)}
+              placeholder="seu@email.com"
+              className={`w-full bg-[#1C1C1C] border text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none transition-colors ${
+                errors.email ? "border-red-500/60 focus:border-red-500" : "border-white/10 focus:border-[#D4AF37]/50"
+              }`}
+            />
+            {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
+          </div>
 
+          {/* Income */}
+          <div data-error={!!errors.monthly_income}>
             <RadioGroup
-              label="Sua renda mensal aproximada:"
-              options={["Até R$ 2.000", "R$ 2.001 a R$ 5.000", "R$ 5.001 a R$ 10.000", "Acima de R$ 10.000"]}
+              label="Qual é a sua faixa de renda mensal? *"
+              options={INCOME_OPTIONS}
               value={form.monthly_income}
               onChange={set("monthly_income")}
+              error={errors.monthly_income}
             />
+          </div>
 
+          {/* Occupation */}
+          <div data-error={!!errors.occupation}>
             <RadioGroup
-              label="Você já investe hoje?"
-              options={["Sim, com consistência", "Sim, mas ainda sinto insegurança", "Não, mas quero começar", "Não"]}
+              label="Qual é a sua ocupação atual? *"
+              options={OCCUPATION_OPTIONS}
+              value={form.occupation}
+              onChange={set("occupation")}
+              error={errors.occupation}
+            />
+            {form.occupation === "Outro" && (
+              <input
+                type="text"
+                value={form.occupation_other}
+                onChange={(e) => set("occupation_other")(e.target.value)}
+                placeholder="Descreva sua ocupação"
+                className="mt-3 w-full bg-[#1C1C1C] border border-white/10 text-white placeholder-white/20 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+              />
+            )}
+          </div>
+
+          {/* Already invests */}
+          <div data-error={!!errors.already_invests}>
+            <RadioGroup
+              label="Você já investe hoje? *"
+              options={INVEST_OPTIONS}
               value={form.already_invests}
               onChange={set("already_invests")}
+              error={errors.already_invests}
             />
+          </div>
 
+          {/* Main goal */}
+          <div data-error={!!errors.main_goal}>
             <RadioGroup
-              label="Qual seu objetivo financeiro principal hoje?"
-              options={["Organizar minhas finanças", "Começar a investir", "Melhorar meus investimentos", "Conquistar liberdade financeira"]}
+              label="Qual seu objetivo financeiro principal hoje? *"
+              options={GOAL_OPTIONS}
               value={form.main_goal}
               onChange={set("main_goal")}
+              error={errors.main_goal}
             />
+          </div>
 
+          {/* Early access */}
+          <div data-error={!!errors.wants_early_access}>
             <RadioGroup
-              label="Quer receber convite para testar o app antes do lançamento?"
+              label="Quer receber convite para testar o app antes do lançamento? *"
               options={["Sim", "Não"]}
               value={form.wants_early_access}
               onChange={set("wants_early_access")}
+              error={errors.wants_early_access}
             />
+          </div>
 
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full bg-[#D4AF37] hover:bg-[#B8860B] disabled:opacity-60 text-black font-semibold text-base py-4 rounded-xl transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30"
-            >
-              {status === "loading" ? "Enviando..." : "Quero entrar na lista de espera →"}
-            </button>
-          </motion.form>
-        )}
+          {/* Error summary */}
+          {Object.keys(errors).length > 0 && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-5 py-4">
+              <p className="text-red-400 text-sm font-medium">Por favor, preencha todos os campos obrigatórios antes de continuar.</p>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="w-full bg-[#D4AF37] hover:bg-[#B8860B] disabled:opacity-60 text-black font-semibold text-base py-4 rounded-xl transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30 hover:scale-[1.01]"
+          >
+            {status === "loading" ? "Enviando..." : "Quero entrar na lista de espera →"}
+          </button>
+        </motion.form>
       </div>
     </section>
   );

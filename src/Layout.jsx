@@ -65,24 +65,64 @@ export default function Layout({ children, currentPageName }) {
     }
     canonical.setAttribute("href", window.location.origin + location.pathname);
 
-    // JSON-LD only on Home
-    const existingLd = document.querySelector('script[type="application/ld+json"]');
-    if (existingLd) existingLd.remove();
+    // JSON-LD structured data
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(el => el.remove());
+
+    const schemas = [];
+
+    // Organization schema (all pages)
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Aurum",
+      url: window.location.origin,
+      logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg",
+      description: "App brasileiro de finanças pessoais e investimentos inteligentes.",
+      foundingLocation: { "@type": "Country", name: "Brasil" },
+      inLanguage: "pt-BR",
+    });
+
     if (currentPageName === "Home") {
-      const ld = document.createElement("script");
-      ld.type = "application/ld+json";
-      ld.text = JSON.stringify({
+      schemas.push({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        name: "Aurum",
-        description: "App de finanças pessoais e investimentos com inteligência.",
+        name: "Aurum — App de Finanças Pessoais",
+        description: "Aurum organiza suas finanças pessoais e guia seus investimentos com inteligência artificial, tudo em um só lugar.",
         applicationCategory: "FinanceApplication",
         operatingSystem: "iOS, Android, Web",
-        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL", availability: "https://schema.org/PreOrder" },
         inLanguage: "pt-BR",
+        publisher: { "@type": "Organization", name: "Aurum" },
+        featureList: [
+          "Organização de finanças pessoais",
+          "Guia de investimentos inteligente",
+          "Controle de gastos",
+          "Planejamento financeiro",
+          "Liberdade financeira",
+        ],
       });
-      document.head.appendChild(ld);
+
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: META.Home.title,
+        description: META.Home.description,
+        url: window.location.origin,
+        inLanguage: "pt-BR",
+        potentialAction: {
+          "@type": "RegisterAction",
+          name: "Entrar na Lista de Espera",
+          target: window.location.origin + "#waitlist-form",
+        },
+      });
     }
+
+    schemas.forEach(schema => {
+      const ld = document.createElement("script");
+      ld.type = "application/ld+json";
+      ld.text = JSON.stringify(schema);
+      document.head.appendChild(ld);
+    });
   }, [currentPageName, location.pathname]);
 
   return (

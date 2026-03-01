@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { createPageUrl } from "@/utils";
+import AurumLogo from "../components/landing/AurumLogo";
 
 export default function Obrigado() {
   return (

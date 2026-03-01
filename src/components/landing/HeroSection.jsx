@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import AurumLogo from "./AurumLogo";
 
 export default function HeroSection({ onCTAClick }) {
   return (

@@ -16,7 +16,7 @@ export default function HeroSection({ onCTAClick }) {
         transition={{ duration: 0.6 }}
         className="mb-16"
       >
-        <span className="text-[#D4AF37] text-2xl font-bold tracking-[0.3em] uppercase">AURUM</span>
+        <AurumLogo className="h-16 md:h-20" />
       </motion.div>
 
       {/* Badge */}
@@ -52,7 +52,7 @@ export default function HeroSection({ onCTAClick }) {
         transition={{ duration: 0.7, delay: 0.35 }}
         className="mt-8 text-center text-[#BFBFBF] text-lg md:text-xl max-w-2xl leading-relaxed"
       >
-        Entre para a lista de espera do app que vai organizar suas finanças e guiar seus investimentos com inteligência — tudo em um só lugar.
+        Entre para a lista de espera do app que vai organizar suas finanças e guiar seus investimentos com inteligência, tudo em um só lugar.
       </motion.p>
 
       {/* CTA */}

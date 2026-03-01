@@ -15,7 +15,7 @@ export default function Obrigado() {
         transition={{ duration: 0.5 }}
         className="absolute top-8 left-1/2 -translate-x-1/2"
       >
-        <span className="text-[#D4AF37] text-xl font-bold tracking-[0.3em] uppercase">AURUM</span>
+        <AurumLogo className="h-10" />
       </motion.div>
 
       <div className="relative max-w-2xl w-full text-center">
@@ -61,7 +61,7 @@ export default function Obrigado() {
             Você está dando o primeiro passo para transformar sua vida financeira com <span className="text-[#D4AF37]">clareza</span>, <span className="text-[#D4AF37]">estratégia</span> e <span className="text-[#D4AF37]">inteligência</span>.
           </p>
           <p className="text-[#BFBFBF] text-base leading-relaxed">
-            📬 Fique de olho no seu e-mail — quando o Aurum for lançado, você será um dos primeiros a saber e terá acesso a <span className="text-white font-medium">benefícios exclusivos</span>.
+            📬 Fique de olho no seu e-mail: quando o Aurum for lançado, você será um dos primeiros a saber e terá acesso a <span className="text-white font-medium">benefícios exclusivos</span>.
           </p>
         </motion.div>
 

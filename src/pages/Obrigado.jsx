@@ -95,15 +95,18 @@ export default function Obrigado() {
         </motion.div>
 
         {/* Back CTA */}
-        <motion.a
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85 }}
-          href={createPageUrl("Home")}
-          className="inline-block bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-sm px-10 py-3.5 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:scale-105"
         >
-          Voltar para a página inicial
-        </motion.a>
+          <Link
+            to={createPageUrl("Home")}
+            className="inline-block bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-sm px-10 py-3.5 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:scale-105"
+          >
+            Voltar para a página inicial
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

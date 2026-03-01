@@ -26,7 +26,7 @@ const features = [
   {
     icon: "◆",
     title: "Comunidade Aurum",
-    description: "Aprenda com outras pessoas e evolua junto — sem achismos, com dados e resultados reais.",
+    description: "Aprenda com outras pessoas e evolua junto, sem achismos, com dados e resultados reais.",
   },
 ];
 

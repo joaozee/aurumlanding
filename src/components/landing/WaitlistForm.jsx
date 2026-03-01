@@ -81,6 +81,7 @@ export default function WaitlistForm({ formRef }) {
   const [form, setForm] = useState({
     full_name: "",
     email: "",
+    whatsapp: "",
     monthly_income: "",
     occupation: "",
     occupation_other: "",

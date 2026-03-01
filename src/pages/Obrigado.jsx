@@ -20,7 +20,7 @@ export default function Obrigado() {
         >
           <img
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg"
-            alt="Aurum"
+            alt="Aurum — App de Finanças Pessoais e Investimentos"
             className="h-24 md:h-32 w-auto object-contain"
           />
         </motion.div>

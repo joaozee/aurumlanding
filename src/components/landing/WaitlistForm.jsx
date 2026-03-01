@@ -74,6 +74,7 @@ function validateEmail(email) {
 }
 
 export default function WaitlistForm({ formRef }) {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 

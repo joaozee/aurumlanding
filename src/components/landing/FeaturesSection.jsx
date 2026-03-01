@@ -6,7 +6,7 @@ const features = [
   {
     icon: "◈",
     title: "Organização Financeira Real",
-    description: "Visual limpo, automático e inteligente. Você sabe para onde seu dinheiro vai — sem esforço.",
+    description: "Visual limpo, automático e inteligente. Você sabe para onde seu dinheiro vai, sem esforço.",
   },
   {
     icon: "◉",

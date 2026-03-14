@@ -22,8 +22,8 @@ Deno.serve(async (req) => {
       wants_early_access,
     });
 
-    // Enviar e-mail de boas-vindas
-    await base44.asServiceRole.integrations.Core.SendEmail({
+    // Enviar e-mail de boas-vindas de forma assíncrona (não bloqueia a resposta)
+    base44.asServiceRole.integrations.Core.SendEmail({
       from_name: "Aurum",
       to: email,
       subject: "Bem-vindo à lista de espera do Aurum! 🌟",

@@ -65,7 +65,7 @@ Deno.serve(async (req) => {
           </div>
         </div>
       `
-    });
+    }).catch(err => console.error('Erro ao enviar e-mail:', err));
 
     return Response.json({ success: true, id: entry.id });
   } catch (error) {

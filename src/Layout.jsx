@@ -134,6 +134,7 @@ export default function Layout({ children, currentPageName }) {
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+        #base44-editor-button { display: none !important; }
       `}</style>
       {children}
     </div>

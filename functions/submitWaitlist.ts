@@ -26,31 +26,42 @@ Deno.serve(async (req) => {
     await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: "Aurum",
       to: email,
-      subject: "Bem-vindo à lista de espera do Aurum! 🎯",
+      subject: "Bem-vindo à lista de espera do Aurum! 🌟",
       body: `
-        <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000; color: #fff; padding: 40px 20px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg" alt="Aurum" style="height: 60px;" />
+        <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000000; color: #ffffff; padding: 40px 20px;">
+          <div style="text-align: center; margin-bottom: 40px;">
+            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a383af798034b14ce37469/310e79247_WhatsAppImage2026-01-30at1902451.jpg" alt="Aurum" style="height: 80px; width: auto;">
           </div>
           
-          <h1 style="color: #D4AF37; font-size: 28px; margin-bottom: 20px; text-align: center;">Bem-vindo à nova era das finanças pessoais!</h1>
-          
-          <p style="color: #BFBFBF; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Olá, <strong style="color: #fff;">${full_name}</strong>!</p>
-          
-          <p style="color: #BFBFBF; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Você está oficialmente na lista de espera do <strong style="color: #D4AF37;">Aurum</strong>. 🎉</p>
-          
-          <div style="background-color: #0E0E0E; border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 12px; padding: 25px; margin: 30px 0;">
-            <p style="color: #BFBFBF; font-size: 15px; line-height: 1.7; margin-bottom: 15px;">✨ Você está dando o primeiro passo para transformar sua vida financeira com <span style="color: #D4AF37;">clareza</span>, <span style="color: #D4AF37;">estratégia</span> e <span style="color: #D4AF37;">inteligência</span>.</p>
-            
-            <p style="color: #BFBFBF; font-size: 15px; line-height: 1.7; margin-bottom: 15px;">📧 Fique de olho no seu e-mail: quando o Aurum for lançado, você será um dos primeiros a saber.</p>
-            
-            <p style="color: #BFBFBF; font-size: 15px; line-height: 1.7; margin: 0;">🎁 Você terá acesso a <strong style="color: #fff;">benefícios exclusivos</strong> por fazer parte da lista de espera.</p>
+          <div style="background: linear-gradient(135deg, #0E0E0E 0%, #1A1A1A 100%); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 16px; padding: 32px; margin-bottom: 32px;">
+            <h1 style="color: #D4AF37; font-size: 28px; font-weight: 700; margin: 0 0 16px 0;">Olá, ${full_name}! 👋</h1>
+            <p style="color: #BFBFBF; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+              Você acaba de dar o <strong style="color: #ffffff;">primeiro passo</strong> para transformar sua vida financeira.
+            </p>
+            <p style="color: #BFBFBF; font-size: 16px; line-height: 1.6; margin: 0;">
+              Bem-vindo à lista de espera do <strong style="color: #D4AF37;">Aurum</strong> — o app que vai organizar suas finanças e guiar seus investimentos com inteligência.
+            </p>
           </div>
-          
-          <p style="color: #BFBFBF; font-size: 15px; line-height: 1.6; margin-top: 30px; text-align: center;">Até breve,<br><strong style="color: #D4AF37;">Equipe Aurum</strong></p>
-          
-          <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p style="color: #666; font-size: 12px;">© 2026 Aurum. Todos os direitos reservados.</p>
+
+          <div style="background-color: #0E0E0E; border-left: 3px solid #D4AF37; padding: 24px; margin-bottom: 32px; border-radius: 8px;">
+            <h2 style="color: #D4AF37; font-size: 18px; font-weight: 600; margin: 0 0 12px 0;">O que vem por aí:</h2>
+            <ul style="color: #BFBFBF; font-size: 15px; line-height: 1.8; margin: 0; padding-left: 20px;">
+              <li>Acesso antecipado ao app antes do lançamento oficial</li>
+              <li>Benefícios exclusivos para early adopters</li>
+              <li>Atualizações sobre o desenvolvimento do Aurum</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 32px;">
+            <p style="color: #BFBFBF; font-size: 15px; line-height: 1.6; margin: 0;">
+              Fique de olho no seu e-mail. Em breve, você receberá novidades e seu convite para testar o Aurum.
+            </p>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center;">
+            <p style="color: #666666; font-size: 13px; margin: 0;">
+              © 2026 Aurum. Construindo o futuro das suas finanças.
+            </p>
           </div>
         </div>
       `

@@ -93,6 +93,7 @@ export default function WaitlistForm({ formRef }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [status, setStatus] = useState("idle");
 
   const set = (field) => (val) => {
@@ -113,6 +114,7 @@ export default function WaitlistForm({ formRef }) {
     if (!form.already_invests) newErrors.already_invests = "Selecione uma opção.";
     if (!form.main_goal) newErrors.main_goal = "Selecione seu objetivo.";
     if (form.wants_early_access === null) newErrors.wants_early_access = "Selecione uma opção.";
+    if (!acceptedPrivacy) newErrors.privacy = "Você precisa aceitar a Política de Privacidade para continuar.";
     return newErrors;
   };
 
@@ -121,7 +123,6 @@ export default function WaitlistForm({ formRef }) {
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // Scroll to first error
       const firstErrorEl = document.querySelector("[data-error='true']");
       if (firstErrorEl) firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
@@ -309,6 +310,31 @@ export default function WaitlistForm({ formRef }) {
               <p className="text-red-400 text-sm font-medium">Por favor, preencha todos os campos obrigatórios antes de continuar.</p>
             </div>
           )}
+
+          {/* Privacy consent */}
+          <div className="flex items-start gap-3">
+            <button
+              type="button"
+              onClick={() => { setAcceptedPrivacy(v => !v); setErrors(prev => ({ ...prev, privacy: null })); }}
+              className={`mt-0.5 w-5 h-5 flex-shrink-0 rounded border-2 flex items-center justify-center transition-colors ${
+                acceptedPrivacy ? "bg-[#D4AF37] border-[#D4AF37]" : errors.privacy ? "border-red-500" : "border-white/30"
+              }`}
+            >
+              {acceptedPrivacy && (
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path d="M1 4L3.5 6.5L9 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </button>
+            <p className="text-[#BFBFBF] text-sm leading-relaxed">
+              Li e concordo com a{" "}
+              <a href="#" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Política de Privacidade</a>{" "}
+              e os{" "}
+              <a href="#" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Termos de Uso</a>{" "}
+              do Aurum.
+            </p>
+          </div>
+          {errors.privacy && <p className="text-red-400 text-xs -mt-4">{errors.privacy}</p>}
 
           <button
             type="submit"

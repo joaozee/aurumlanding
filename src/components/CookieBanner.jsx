@@ -37,9 +37,14 @@ export default function CookieBanner() {
           <div className="bg-[#0B1120] border border-white/10 rounded-2xl p-6 shadow-2xl">
             {/* Header */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] text-lg flex-shrink-0">
-                👁
-              </div>
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+              <svg width="38" height="38" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 2 L4 5 L4 11 C4 15.4 7 19.2 11 20.5 C15 19.2 18 15.4 18 11 L18 5 Z" fill="rgba(212,175,55,0.15)" stroke="#D4AF37" strokeWidth="1.2" strokeLinejoin="round"/>
+                <rect x="8" y="10" width="6" height="5" rx="1" fill="#D4AF37" fillOpacity="0.9"/>
+                <path d="M9 10 L9 8.5 C9 7.1 13 7.1 13 8.5 L13 10" stroke="#D4AF37" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+                <circle cx="11" cy="12.5" r="0.8" fill="#0B1120"/>
+              </svg>
+            </div>
               <span className="text-[#D4AF37] font-semibold text-base">Controle sua privacidade</span>
             </div>
 

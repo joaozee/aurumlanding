@@ -78,6 +78,8 @@ export default function WaitlistForm({ formRef }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
+  const [honeypot, setHoneypot] = useState("");
+
   const [form, setForm] = useState({
     full_name: "",
     email: "",
@@ -138,6 +140,7 @@ export default function WaitlistForm({ formRef }) {
       already_invests: form.already_invests,
       main_goal: form.main_goal,
       wants_early_access: form.wants_early_access === "Sim",
+      website: honeypot,
     });
 
     if (response.data?.error) {
@@ -176,6 +179,18 @@ export default function WaitlistForm({ formRef }) {
           noValidate
           className="bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 md:p-10 space-y-8"
         >
+          {/* Honeypot field — hidden from real users, bots will fill it */}
+          <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           {/* Name */}
           <div className="space-y-2" data-error={!!errors.full_name}>
             <label className="text-[#BFBFBF] text-sm font-medium block">

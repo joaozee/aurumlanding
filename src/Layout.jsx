@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import CookieBanner from "./components/CookieBanner";
 import { useLocation } from "react-router-dom";
 
 const META = {
@@ -137,6 +138,7 @@ export default function Layout({ children, currentPageName }) {
         #base44-editor-button { display: none !important; }
       `}</style>
       {children}
+      <CookieBanner />
     </div>
   );
 }

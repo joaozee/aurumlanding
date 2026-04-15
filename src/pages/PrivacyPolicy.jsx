@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import DataRequestForm from "@/components/privacy/DataRequestForm";
 
 const sections = [
   {
@@ -185,6 +186,15 @@ export default function PrivacyPolicy() {
             </motion.div>
           ))}
         </div>
+
+        {/* Data Request Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <DataRequestForm />
+        </motion.div>
 
         {/* Footer */}
         <motion.div

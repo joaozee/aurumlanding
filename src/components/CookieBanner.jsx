@@ -55,7 +55,7 @@ export default function CookieBanner() {
 
             {/* Links */}
             <div className="flex gap-3 text-sm mb-5">
-              <a href="#" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Política de Privacidade</a>
+              <a href="/PrivacyPolicy" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Política de Privacidade</a>
             </div>
 
             {/* Buttons */}

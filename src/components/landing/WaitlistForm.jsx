@@ -328,7 +328,7 @@ export default function WaitlistForm({ formRef }) {
             </button>
             <p className="text-[#BFBFBF] text-sm leading-relaxed">
               Li e concordo com a{" "}
-              <a href="/PrivacyPolicy" target="_blank" rel="noopener noreferrer" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Política de Privacidade</a>{" "}
+              <a href="/politica-de-privacidade" target="_blank" rel="noopener noreferrer" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">Política de Privacidade</a>{" "}
               do Aurum.
             </p>
           </div>

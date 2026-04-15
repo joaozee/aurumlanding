@@ -7,7 +7,7 @@ export default function FooterSection() {
           <p className="text-[#BFBFBF]/40 text-xs text-center">
             © 2026 Aurum. Todos os direitos reservados.
           </p>
-          <a href="/PrivacyPolicy" className="text-[#D4AF37]/60 hover:text-[#D4AF37] text-xs underline underline-offset-2 transition-colors">
+          <a href="/politica-de-privacidade" className="text-[#D4AF37]/60 hover:text-[#D4AF37] text-xs underline underline-offset-2 transition-colors">
             Política de Privacidade
           </a>
         </div>

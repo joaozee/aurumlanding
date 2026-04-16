@@ -49,12 +49,12 @@ export default function NavBar({ onCTAClick }) {
           <AurumLogo className="h-8" />
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleLink(link.href)}
-                className="text-[#BFBFBF] hover:text-[#D4AF37] text-sm transition-colors duration-200"
+                className="text-[#BFBFBF] hover:text-[#D4AF37] text-sm transition-colors duration-200 whitespace-nowrap"
               >
                 {link.label}
               </button>
@@ -64,7 +64,7 @@ export default function NavBar({ onCTAClick }) {
           {/* Desktop CTA */}
           <button
             onClick={onCTAClick}
-            className="hidden md:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-2 rounded-full transition-all duration-200"
+            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-2 rounded-full transition-all duration-200 whitespace-nowrap"
           >
             Entrar na lista →
           </button>
@@ -73,7 +73,7 @@ export default function NavBar({ onCTAClick }) {
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 z-50 relative"
+            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 z-50 relative"
           >
             <motion.span
               animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}

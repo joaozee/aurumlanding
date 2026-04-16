@@ -40,7 +40,8 @@ export default function NavBar({ onCTAClick }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0 }}
+        className={`transition-all duration-300 ${
           scrolled ? "bg-black/95 backdrop-blur-md border-b border-white/5" : "bg-black/80 backdrop-blur-sm"
         }`}
       >
@@ -107,7 +108,8 @@ export default function NavBar({ onCTAClick }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden"
+              style={{ zIndex: 9998 }}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm md:hidden"
             />
 
             {/* Drawer panel */}
@@ -116,7 +118,8 @@ export default function NavBar({ onCTAClick }) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              className="fixed top-0 right-0 h-full w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 z-40 md:hidden flex flex-col"
+              style={{ zIndex: 9998 }}
+              className="fixed top-0 right-0 h-full w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 md:hidden flex flex-col"
             >
               {/* Logo inside drawer */}
               <div className="px-8 pt-8 pb-6 border-b border-white/5">

@@ -46,7 +46,9 @@ export default function NavBar({ onCTAClick }) {
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <AurumLogo className="h-8" />
+          <div className="flex-shrink-0">
+            <AurumLogo className="h-8" />
+          </div>
 
           {/* Desktop links */}
           <nav className="hidden lg:flex items-center gap-6">

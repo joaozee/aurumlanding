@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AurumLogo from "./AurumLogo";
 
-const NAV_LINKS = [
-  { label: "Início", href: "#" },
+const LINKS = [
+  { label: "Início", href: "#top" },
   { label: "Funcionalidades", href: "#features" },
   { label: "Para quem é?", href: "#audience" },
   { label: "Lista de Espera", href: "#waitlist-form" },
@@ -19,7 +19,6 @@ export default function NavBar({ onCTAClick }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -29,21 +28,19 @@ export default function NavBar({ onCTAClick }) {
     setOpen(false);
     if (href === "#waitlist-form") {
       onCTAClick?.();
-    } else if (href !== "#") {
+    } else if (href === "#top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
       const el = document.querySelector(href);
       el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
     <>
       <header
-        style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0 }}
-        className={`transition-all duration-300 ${
-          scrolled ? "border-b border-white/5" : ""
-        } bg-black`}
+        style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0, minHeight: "64px" }}
+        className={`bg-black transition-all duration-300 ${scrolled ? "border-b border-white/5" : ""}`}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
@@ -53,7 +50,7 @@ export default function NavBar({ onCTAClick }) {
 
           {/* Desktop links */}
           <nav className="hidden lg:flex items-center gap-6">
-            {NAV_LINKS.map((link) => (
+            {LINKS.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleLink(link.href)}
@@ -67,7 +64,7 @@ export default function NavBar({ onCTAClick }) {
           {/* Desktop CTA */}
           <button
             onClick={onCTAClick}
-            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-2 rounded-full transition-all duration-200 whitespace-nowrap"
+            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-2 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0"
           >
             Entrar na lista →
           </button>
@@ -76,7 +73,7 @@ export default function NavBar({ onCTAClick }) {
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
-            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 z-50 relative"
+            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
           >
             <motion.span
               animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -101,34 +98,28 @@ export default function NavBar({ onCTAClick }) {
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setOpen(false)}
-              style={{ zIndex: 9998 }}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm md:hidden"
+              style={{ zIndex: 9998, position: "fixed", inset: 0 }}
+              className="bg-black/70 backdrop-blur-sm lg:hidden"
             />
-
-            {/* Drawer panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 280 }}
-              style={{ zIndex: 9998 }}
-              className="fixed top-0 right-0 h-full w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 md:hidden flex flex-col"
+              style={{ zIndex: 9999, position: "fixed", top: 0, right: 0, bottom: 0 }}
+              className="w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 lg:hidden flex flex-col"
             >
-              {/* Logo inside drawer */}
               <div className="px-8 pt-8 pb-6 border-b border-white/5">
                 <AurumLogo className="h-8" />
               </div>
-
-              {/* Links */}
               <nav className="flex flex-col px-8 py-8 gap-2 flex-1">
-                {NAV_LINKS.map((link, i) => (
+                {LINKS.map((link, i) => (
                   <motion.button
                     key={link.label}
                     initial={{ opacity: 0, x: 20 }}
@@ -141,8 +132,6 @@ export default function NavBar({ onCTAClick }) {
                   </motion.button>
                 ))}
               </nav>
-
-              {/* CTA */}
               <div className="px-8 pb-10">
                 <button
                   onClick={() => { setOpen(false); onCTAClick?.(); }}

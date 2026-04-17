@@ -42,8 +42,8 @@ export default function NavBar({ onCTAClick }) {
       <header
         style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0 }}
         className={`transition-all duration-300 ${
-          scrolled ? "bg-black/95 backdrop-blur-md border-b border-white/5" : "bg-black/80 backdrop-blur-sm"
-        }`}
+          scrolled ? "border-b border-white/5" : ""
+        } bg-black`}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}

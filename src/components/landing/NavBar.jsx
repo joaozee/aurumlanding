@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AurumLogo from "./AurumLogo";
 
+// v2 - fixed nav links
 const LINKS = [
-  { label: "Início", href: "#top" },
+  { label: "Home", href: "#top" },
   { label: "Funcionalidades", href: "#features" },
   { label: "Para quem é?", href: "#audience" },
   { label: "Lista de Espera", href: "#waitlist-form" },
@@ -39,10 +40,9 @@ export default function NavBar({ onCTAClick }) {
   return (
     <>
       <header
-        style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0, minHeight: "64px" }}
-        className={`bg-black transition-all duration-300 ${scrolled ? "border-b border-white/5" : ""}`}
+        style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0, height: "64px", backgroundColor: "#000000", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none" }}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div style={{ position: "relative", zIndex: 1, backgroundColor: "#000000", height: "100%" }} className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
             <AurumLogo className="h-8" />

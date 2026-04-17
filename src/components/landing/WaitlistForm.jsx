@@ -154,7 +154,7 @@ export default function WaitlistForm({ formRef }) {
   };
 
   return (
-    <section ref={sectionRef} id="waitlist-form" className="bg-black py-28 px-6">
+    <section ref={sectionRef} id="waitlist-form" style={{ position: "relative", zIndex: 0 }} className="bg-black py-28 px-6">
       <div className="max-w-2xl mx-auto" ref={formRef}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

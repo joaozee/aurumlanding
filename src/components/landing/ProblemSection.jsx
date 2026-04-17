@@ -14,7 +14,7 @@ export default function ProblemSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-[#0E0E0E] py-28 px-6">
+    <section ref={ref} style={{ position: "relative", zIndex: 0 }} className="bg-[#0E0E0E] py-28 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

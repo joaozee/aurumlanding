@@ -140,9 +140,7 @@ export default function PrivacyPolicy() {
             Política de Privacidade
           </h1>
           <p className="mt-2 text-[#BFBFBF] text-sm">Última atualização: 13 de abril de 2026</p>
-          <p className="mt-4 text-[#BFBFBF] text-sm leading-relaxed">
-            <span className="text-white font-medium">Controlador dos Dados:</span> [Inserir Razão Social da Empresa], CNPJ [Inserir CNPJ], doravante denominado simplesmente "Controladora".
-          </p>
+
         </motion.div>
 
         {/* Sections */}

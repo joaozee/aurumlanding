@@ -34,8 +34,8 @@ const INVEST_OPTIONS = [
 ];
 
 const GOAL_OPTIONS = [
-  "Organizar minhas finanças",
-  "Começar a investir",
+  "Organizar minhas finan\u00e7as",
+  "Come\u00e7ar a investir",
   "Melhorar meus investimentos",
   "Conquistar liberdade financeira",
 ];

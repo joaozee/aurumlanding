@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/base44Client";
 
 const REQUEST_TYPES = [
   "Quero acessar meus dados.",
@@ -38,7 +38,7 @@ export default function DataRequestForm() {
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | loading | success
+  const [status, setStatus] = useState("idle");
 
   const set = (field) => (e) => {
     const val = e.target ? e.target.value : e;
@@ -61,15 +61,25 @@ export default function DataRequestForm() {
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setStatus("loading");
-    await base44.entities.DataRequest.create({
-      full_name: form.full_name,
-      email: form.email,
-      whatsapp: form.whatsapp,
-      request_type: form.request_type,
-      who_i_am: form.who_i_am,
-      message: form.message,
-      status: "Pendente",
-    });
+
+    const { error } = await supabase
+      .from("data_requests")
+      .insert({
+        full_name: form.full_name,
+        email: form.email,
+        whatsapp: form.whatsapp,
+        request_type: form.request_type,
+        who_i_am: form.who_i_am,
+        message: form.message,
+        status: "Pendente",
+      });
+
+    if (error) {
+      setErrors({ form: "Erro ao enviar. Tente novamente." });
+      setStatus("idle");
+      return;
+    }
+
     setStatus("success");
   };
 
@@ -80,7 +90,6 @@ export default function DataRequestForm() {
 
   return (
     <div className="mt-12">
-      {/* Toggle button */}
       {!open && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-center">
           <button
@@ -92,7 +101,6 @@ export default function DataRequestForm() {
         </motion.div>
       )}
 
-      {/* Form */}
       {open && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -117,27 +125,23 @@ export default function DataRequestForm() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-5">
-              {/* Nome */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">Nome completo <span className="text-[#D4AF37]">*</span></label>
                 <input type="text" value={form.full_name} onChange={set("full_name")} placeholder="Seu nome completo" className={inputClass("full_name")} />
                 {errors.full_name && <p className="text-red-400 text-xs mt-1">{errors.full_name}</p>}
               </div>
 
-              {/* E-mail */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">E-mail <span className="text-[#D4AF37]">*</span></label>
                 <input type="email" value={form.email} onChange={set("email")} placeholder="seu@email.com" className={inputClass("email")} />
                 {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
               </div>
 
-              {/* WhatsApp */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">WhatsApp</label>
                 <input type="tel" value={form.whatsapp} onChange={set("whatsapp")} placeholder="(11) 99999-9999" className={inputClass("whatsapp")} />
               </div>
 
-              {/* Tipo de solicitação */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">Tipo de solicitação <span className="text-[#D4AF37]">*</span></label>
                 <select value={form.request_type} onChange={set("request_type")} className={`${inputClass("request_type")} appearance-none`}>
@@ -147,7 +151,6 @@ export default function DataRequestForm() {
                 {errors.request_type && <p className="text-red-400 text-xs mt-1">{errors.request_type}</p>}
               </div>
 
-              {/* Sou um(a) */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">Sou um(a) <span className="text-[#D4AF37]">*</span></label>
                 <select value={form.who_i_am} onChange={set("who_i_am")} className={`${inputClass("who_i_am")} appearance-none`}>
@@ -157,12 +160,12 @@ export default function DataRequestForm() {
                 {errors.who_i_am && <p className="text-red-400 text-xs mt-1">{errors.who_i_am}</p>}
               </div>
 
-              {/* Mensagem */}
               <div>
                 <label className="text-[#BFBFBF] text-sm font-medium block mb-1.5">Mensagem adicional</label>
                 <textarea value={form.message} onChange={set("message")} placeholder="Descreva detalhes da sua solicitação..." rows={4} className={`${inputClass("message")} resize-none`} />
               </div>
 
+              {errors.form && <p className="text-red-400 text-sm">{errors.form}</p>}
               <p className="text-[#BFBFBF]/50 text-xs">* Campos obrigatórios</p>
 
               <button

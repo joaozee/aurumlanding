@@ -1,14 +1,6 @@
-import { createClient } from '@base44/sdk';
-import { appParams } from '@/lib/app-params';
+import { createClient } from '@supabase/supabase-js'
 
-const { appId, token, functionsVersion, appBaseUrl } = appParams;
+const supabaseUrl = 'https://iaedslcmhsmgbnpogevh.supabase.co'
+const supabaseKey = 'sb_publishable_SiYQoekblKmCYNobyochtw_j3-hy4Ep'
 
-//Create a client with authentication required
-export const base44 = createClient({
-  appId,
-  token,
-  functionsVersion,
-  serverUrl: '',
-  requiresAuth: false,
-  appBaseUrl
-});
+export const supabase = createClient(supabaseUrl, supabaseKey)

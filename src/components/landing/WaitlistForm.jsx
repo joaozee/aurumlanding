@@ -34,8 +34,8 @@ const INVEST_OPTIONS = [
 ];
 
 const GOAL_OPTIONS = [
-  "Organizar minhas finan\u00e7as",
-  "Come\u00e7ar a investir",
+  "Organizar minhas finanças",
+  "Começar a investir",
   "Melhorar meus investimentos",
   "Conquistar liberdade financeira",
 ];
@@ -120,6 +120,7 @@ export default function WaitlistForm({ formRef }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (honeypot) return;
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -132,20 +133,21 @@ export default function WaitlistForm({ formRef }) {
       ? `Outro: ${form.occupation_other}`
       : form.occupation;
 
-    const response = await base44.functions.invoke("submitWaitlist", {
-      full_name: form.full_name,
-      email: form.email,
-      whatsapp: form.whatsapp,
-      monthly_income: form.monthly_income,
-      occupation: occupationValue,
-      already_invests: form.already_invests,
-      main_goal: form.main_goal,
-      wants_early_access: form.wants_early_access === "Sim",
-      website: honeypot,
-    });
+    const { error } = await supabase
+      .from("waitlist_entries")
+      .insert({
+        full_name: form.full_name,
+        email: form.email,
+        whatsapp: form.whatsapp,
+        monthly_income: form.monthly_income,
+        occupation: occupationValue,
+        already_invests: form.already_invests,
+        main_goal: form.main_goal,
+        wants_early_access: form.wants_early_access === "Sim",
+      });
 
-    if (response.data?.error) {
-      setErrors({ form: response.data.error });
+    if (error) {
+      setErrors({ form: "Erro ao enviar. Tente novamente." });
       setStatus("idle");
       return;
     }
@@ -180,7 +182,6 @@ export default function WaitlistForm({ formRef }) {
           noValidate
           className="bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 md:p-10 space-y-8"
         >
-          {/* Honeypot field — hidden from real users, bots will fill it */}
           <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
             <input
               type="text"
@@ -192,7 +193,6 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Name */}
           <div className="space-y-2" data-error={!!errors.full_name}>
             <label className="text-[#BFBFBF] text-sm font-medium block">
               Nome completo <span className="text-[#D4AF37]">*</span>
@@ -209,7 +209,6 @@ export default function WaitlistForm({ formRef }) {
             {errors.full_name && <p className="text-red-400 text-xs">{errors.full_name}</p>}
           </div>
 
-          {/* WhatsApp */}
           <div className="space-y-2">
             <label className="text-[#BFBFBF] text-sm font-medium block">
               WhatsApp
@@ -223,7 +222,6 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Email */}
           <div className="space-y-2" data-error={!!errors.email}>
             <label className="text-[#BFBFBF] text-sm font-medium block">
               E-mail <span className="text-[#D4AF37]">*</span>
@@ -240,7 +238,6 @@ export default function WaitlistForm({ formRef }) {
             {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
           </div>
 
-          {/* Income */}
           <div data-error={!!errors.monthly_income}>
             <RadioGroup
               label="Qual é a sua faixa de renda mensal? *"
@@ -251,7 +248,6 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Occupation */}
           <div data-error={!!errors.occupation}>
             <RadioGroup
               label="Qual é a sua ocupação atual? *"
@@ -271,7 +267,6 @@ export default function WaitlistForm({ formRef }) {
             )}
           </div>
 
-          {/* Already invests */}
           <div data-error={!!errors.already_invests}>
             <RadioGroup
               label="Você já investe hoje? *"
@@ -282,7 +277,6 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Main goal */}
           <div data-error={!!errors.main_goal}>
             <RadioGroup
               label="Qual seu objetivo financeiro principal hoje? *"
@@ -293,7 +287,6 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Early access */}
           <div data-error={!!errors.wants_early_access}>
             <RadioGroup
               label="Quer receber convite para testar o app antes do lançamento? *"
@@ -304,14 +297,12 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          {/* Error summary */}
           {Object.keys(errors).length > 0 && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-5 py-4">
               <p className="text-red-400 text-sm font-medium">Por favor, preencha todos os campos obrigatórios antes de continuar.</p>
             </div>
           )}
 
-          {/* Privacy consent */}
           <div className="flex items-start gap-3">
             <button
               type="button"

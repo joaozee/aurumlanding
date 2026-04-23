@@ -34,9 +34,7 @@ export default async function handler(req, res) {
 
   const { full_name, email, request_type, description } = req.body;
 
-  if (!full_name || !email || !request_type) {
-    return res.status(400).json({ error: "Campos obrigatórios faltando" });
-  }
+ const { full_name, email, whatsapp, request_type, who_i_am, description } = req.body;
 
   const { error } = await supabase.from("data_requests").insert([
     {
@@ -46,11 +44,15 @@ export default async function handler(req, res) {
       description: description || null,
     },
   ]);
-
-  if (error) {
-    console.error("Supabase error:", error);
-    return res.status(500).json({ error: "Erro ao salvar. Tente novamente." });
-  }
+{
+  full_name,
+  email: email.toLowerCase(),
+  whatsapp: whatsapp || null,
+  request_type,
+  who_i_am,
+  message: description || null,
+  status: "Pendente",
+},
 
   return res.status(200).json({ success: true });
 }

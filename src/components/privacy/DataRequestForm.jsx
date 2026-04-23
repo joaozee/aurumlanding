@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { supabase } from "@/api/base44Client";
 
 const REQUEST_TYPES = [
   "Quero acessar meus dados.",
@@ -62,25 +61,40 @@ export default function DataRequestForm() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setStatus("loading");
 
-    const { error } = await supabase
-      .from("data_requests")
-      .insert({
-        full_name: form.full_name,
-        email: form.email,
-        whatsapp: form.whatsapp,
-        request_type: form.request_type,
-        who_i_am: form.who_i_am,
-        message: form.message,
-        status: "Pendente",
+    try {
+      const res = await fetch("/api/data-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: form.full_name,
+          email: form.email.toLowerCase().trim(),
+          whatsapp: form.whatsapp,
+          request_type: form.request_type,
+          who_i_am: form.who_i_am,
+          description: form.message,
+          status: "Pendente",
+        }),
       });
 
-    if (error) {
-      setErrors({ form: "Erro ao enviar. Tente novamente." });
-      setStatus("idle");
-      return;
-    }
+      const data = await res.json();
 
-    setStatus("success");
+      if (res.status === 429) {
+        setErrors({ form: data.error || "Muitas tentativas. Tente novamente em alguns minutos." });
+        setStatus("idle");
+        return;
+      }
+
+      if (!res.ok) {
+        setErrors({ form: data.error || "Erro ao enviar. Tente novamente." });
+        setStatus("idle");
+        return;
+      }
+
+      setStatus("success");
+    } catch (err) {
+      setErrors({ form: "Erro de conexão. Tente novamente." });
+      setStatus("idle");
+    }
   };
 
   const inputClass = (field) =>

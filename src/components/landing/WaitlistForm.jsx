@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 
 const INCOME_OPTIONS = [
@@ -121,6 +120,7 @@ export default function WaitlistForm({ formRef }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
+
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -128,44 +128,56 @@ export default function WaitlistForm({ formRef }) {
       if (firstErrorEl) firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+
     setStatus("loading");
 
-    // Verifica email duplicado — redireciona silenciosamente se já existir
-    const { data: existing } = await supabase
-      .from("waitlist_entries")
-      .select("email")
-      .eq("email", form.email.toLowerCase().trim())
-      .limit(1);
+    const occupationValue =
+      form.occupation === "Outro" && form.occupation_other
+        ? `Outro: ${form.occupation_other}`
+        : form.occupation;
 
-    if (existing && existing.length > 0) {
-      navigate(createPageUrl("Obrigado"));
-      return;
-    }
-
-    const occupationValue = form.occupation === "Outro" && form.occupation_other
-      ? `Outro: ${form.occupation_other}`
-      : form.occupation;
-
-    const { error } = await supabase
-      .from("waitlist_entries")
-      .insert({
-        full_name: form.full_name,
-        email: form.email.toLowerCase().trim(),
-        whatsapp: form.whatsapp,
-        monthly_income: form.monthly_income,
-        occupation: occupationValue,
-        already_invests: form.already_invests,
-        main_goal: form.main_goal,
-        wants_early_access: form.wants_early_access === "Sim",
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: form.full_name,
+          email: form.email.toLowerCase().trim(),
+          whatsapp: form.whatsapp,
+          monthly_income: form.monthly_income,
+          occupation: occupationValue,
+          already_invests: form.already_invests,
+          main_goal: form.main_goal,
+          wants_early_access: form.wants_early_access === "Sim",
+          honeypot,
+        }),
       });
 
-    if (error) {
-      setErrors({ form: "Erro ao enviar. Tente novamente." });
-      setStatus("idle");
-      return;
-    }
+      const data = await res.json();
 
-    navigate(createPageUrl("Obrigado"));
+      if (res.status === 429) {
+        setErrors({ form: data.error || "Muitas tentativas. Tente novamente em alguns minutos." });
+        setStatus("idle");
+        return;
+      }
+
+      if (res.status === 409) {
+        // Email duplicado — redireciona silenciosamente
+        navigate(createPageUrl("Obrigado"));
+        return;
+      }
+
+      if (!res.ok) {
+        setErrors({ form: data.error || "Erro ao enviar. Tente novamente." });
+        setStatus("idle");
+        return;
+      }
+
+      navigate(createPageUrl("Obrigado"));
+    } catch (err) {
+      setErrors({ form: "Erro de conexão. Tente novamente." });
+      setStatus("idle");
+    }
   };
 
   return (
@@ -312,7 +324,9 @@ export default function WaitlistForm({ formRef }) {
 
           {Object.keys(errors).length > 0 && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-5 py-4">
-              <p className="text-red-400 text-sm font-medium">Por favor, preencha todos os campos obrigatórios antes de continuar.</p>
+              <p className="text-red-400 text-sm font-medium">
+                {errors.form || "Por favor, preencha todos os campos obrigatórios antes de continuar."}
+              </p>
             </div>
           )}
 

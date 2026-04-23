@@ -18,7 +18,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Método não permitido" });
   }
 
-  // Rate limit por IP
   const ip =
     req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
     req.headers["x-real-ip"] ||
@@ -32,27 +31,28 @@ export default async function handler(req, res) {
     });
   }
 
-  const { full_name, email, request_type, description } = req.body;
+  const { full_name, email, whatsapp, request_type, who_i_am, description } = req.body;
 
- const { full_name, email, whatsapp, request_type, who_i_am, description } = req.body;
+  if (!full_name || !email || !request_type || !who_i_am) {
+    return res.status(400).json({ error: "Campos obrigatórios faltando" });
+  }
 
   const { error } = await supabase.from("data_requests").insert([
     {
       full_name,
       email: email.toLowerCase(),
+      whatsapp: whatsapp || null,
       request_type,
-      description: description || null,
+      who_i_am,
+      message: description || null,
+      status: "Pendente",
     },
   ]);
-{
-  full_name,
-  email: email.toLowerCase(),
-  whatsapp: whatsapp || null,
-  request_type,
-  who_i_am,
-  message: description || null,
-  status: "Pendente",
-},
+
+  if (error) {
+    console.error("Supabase error:", error);
+    return res.status(500).json({ error: "Erro ao salvar. Tente novamente." });
+  }
 
   return res.status(200).json({ success: true });
 }

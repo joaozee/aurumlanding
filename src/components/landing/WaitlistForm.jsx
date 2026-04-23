@@ -129,6 +129,19 @@ export default function WaitlistForm({ formRef }) {
       return;
     }
     setStatus("loading");
+
+    // Verifica email duplicado — redireciona silenciosamente se já existir
+    const { data: existing } = await supabase
+      .from("waitlist_entries")
+      .select("email")
+      .eq("email", form.email.toLowerCase().trim())
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      navigate(createPageUrl("Obrigado"));
+      return;
+    }
+
     const occupationValue = form.occupation === "Outro" && form.occupation_other
       ? `Outro: ${form.occupation_other}`
       : form.occupation;
@@ -137,7 +150,7 @@ export default function WaitlistForm({ formRef }) {
       .from("waitlist_entries")
       .insert({
         full_name: form.full_name,
-        email: form.email,
+        email: form.email.toLowerCase().trim(),
         whatsapp: form.whatsapp,
         monthly_income: form.monthly_income,
         occupation: occupationValue,

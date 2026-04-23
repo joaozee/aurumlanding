@@ -1,0 +1,16 @@
+{
+  "name": "Aurum — Fundado em Valor",
+  "short_name": "Aurum",
+  "description": "Construa sua Liberdade Financeira com Clareza e Segurança.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0B",
+  "theme_color": "#C9A84C",
+  "icons": [
+    {
+      "src": "/aurum-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

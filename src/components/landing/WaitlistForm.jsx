@@ -121,7 +121,7 @@ export default function WaitlistForm({ formRef }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
-    console.log("form state:", JSON.stringify(form)); console.log("privacy:", acceptedPrivacy); const newErrors = validate(); console.log("errors:", JSON.stringify(newErrors));
+    const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       const firstErrorEl = document.querySelector("[data-error='true']");

@@ -32,14 +32,24 @@ export default async function handler(req, res) {
     });
   }
 
-  const { name, email, phone, honeypot } = req.body;
+  const {
+    full_name,
+    email,
+    whatsapp,
+    monthly_income,
+    occupation,
+    already_invests,
+    main_goal,
+    wants_early_access,
+    honeypot,
+  } = req.body;
 
   // Honeypot anti-bot (silencioso)
   if (honeypot) {
     return res.status(200).json({ success: true });
   }
 
-  if (!name || !email) {
+  if (!full_name || !email) {
     return res.status(400).json({ error: "Nome e email são obrigatórios" });
   }
 
@@ -56,10 +66,14 @@ export default async function handler(req, res) {
 
   const { error } = await supabase.from("waitlist_entries").insert([
     {
-      name,
+      full_name,
       email: email.toLowerCase(),
-      phone: phone || null,
-      source: "landing_page",
+      whatsapp: whatsapp || null,
+      monthly_income: monthly_income || null,
+      occupation: occupation || null,
+      already_invests: already_invests || null,
+      main_goal: main_goal || null,
+      wants_early_access: wants_early_access ?? null,
     },
   ]);
 

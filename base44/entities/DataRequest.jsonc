@@ -1,0 +1,83 @@
+{
+  "name": "DataRequest",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Nome completo do titular"
+    },
+    "email": {
+      "type": "string",
+      "description": "E-mail do titular"
+    },
+    "whatsapp": {
+      "type": "string",
+      "description": "WhatsApp do titular"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "Quero acessar meus dados.",
+        "Quero corrigir ou atualizar meus dados.",
+        "Quero pedir a portabilidade dos meus dados.",
+        "Quero que a empresa elimine meus dados.",
+        "Quero revogar o meu consentimento sobre o tratamento dos meus dados.",
+        "Quero saber com quem meus dados s\u00e3o compartilhados.",
+        "Quero saber o que acontecer\u00e1 se eu revogar o meu consentimento para tratamento de dados.",
+        "Quero saber se voc\u00eas tratam os meus dados.",
+        "Quero solicitar a anonimiza\u00e7\u00e3o, o bloqueio ou elimina\u00e7\u00e3o de dados."
+      ],
+      "description": "Tipo de solicita\u00e7\u00e3o"
+    },
+    "who_i_am": {
+      "type": "string",
+      "enum": [
+        "Inscrito na lista de espera",
+        "Usu\u00e1rio beta",
+        "Cliente",
+        "Ex-usu\u00e1rio",
+        "Prestador de servi\u00e7o",
+        "Outro"
+      ],
+      "description": "Rela\u00e7\u00e3o do titular com o Aurum"
+    },
+    "message": {
+      "type": "string",
+      "description": "Mensagem adicional"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pendente",
+        "Em an\u00e1lise",
+        "Conclu\u00edda"
+      ],
+      "default": "Pendente",
+      "description": "Status da solicita\u00e7\u00e3o"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "request_type",
+    "who_i_am"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

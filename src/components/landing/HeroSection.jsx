@@ -14,9 +14,9 @@ export default function HeroSection({ onCTAClick }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mt-20 mb-10"
+        className="mt-8 mb-6"
       >
-        <AurumLogo className="h-48 md:h-72 max-w-2xl" />
+        <AurumLogo className="h-24 md:h-36 max-w-2xl" loading="eager" />
       </motion.div>
 
       {/* Badge */}
@@ -24,9 +24,9 @@ export default function HeroSection({ onCTAClick }) {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="mb-8"
+        className="mb-6"
       >
-        <span className="border border-[#D4AF37]/30 text-[#D4AF37] text-xs tracking-widest uppercase px-4 py-2 rounded-full">
+        <span className="border border-[#D4AF37]/30 text-[#D4AF37] text-xs md:text-sm tracking-widest uppercase px-4 py-2 rounded-full">
           Em breve · Lista de Espera Aberta
         </span>
       </motion.div>
@@ -50,7 +50,7 @@ export default function HeroSection({ onCTAClick }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.35 }}
-        className="mt-8 text-center text-[#BFBFBF] text-lg md:text-xl max-w-2xl leading-relaxed"
+        className="mt-5 text-center text-[#BFBFBF] text-lg md:text-xl max-w-2xl leading-relaxed"
       >
         Entre para a lista de espera do app que vai organizar suas finanças e guiar seus investimentos com inteligência, tudo em um só lugar.
       </motion.p>
@@ -61,7 +61,7 @@ export default function HeroSection({ onCTAClick }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
         onClick={onCTAClick}
-        className="mt-12 bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-base px-10 py-4 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/40 hover:scale-105"
+        className="mt-8 bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-base px-10 py-4 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/40 hover:scale-105"
       >
         Quero entrar na lista de espera →
       </motion.button>

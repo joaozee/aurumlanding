@@ -11,10 +11,10 @@ const problems = [
 
 export default function ProblemSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 0 }} className="bg-[#0E0E0E] py-28 px-6">
+    <section ref={ref} style={{ position: "relative", zIndex: 0 }} className="bg-[#0E0E0E] py-20 md:py-28 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -25,7 +25,7 @@ export default function ProblemSection() {
           <span className="text-[#D4AF37] text-xs tracking-widest uppercase">O Problema</span>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white leading-tight">
             Gerenciar dinheiro<br />
-            <span className="text-[#BFBFBF] font-light">não é fácil.</span>
+            <span className="text-[#D4AF37]">não é fácil.</span>
           </h2>
           <p className="mt-6 text-[#BFBFBF] text-lg max-w-2xl mx-auto leading-relaxed">
             Você ganha… paga contas… tenta investir… e ainda assim sente que não está avançando.

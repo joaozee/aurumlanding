@@ -64,9 +64,17 @@ export default function NavBar({ onCTAClick }) {
           {/* Desktop CTA */}
           <button
             onClick={onCTAClick}
-            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-2 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0"
+            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-3 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px]"
           >
             Entrar na lista →
+          </button>
+
+          {/* Mobile CTA */}
+          <button
+            onClick={onCTAClick}
+            className="lg:hidden bg-[#D4AF37] hover:bg-[#B8860B] text-black text-xs font-semibold px-3.5 py-2 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0"
+          >
+            Lista →
           </button>
 
           {/* Hamburger */}

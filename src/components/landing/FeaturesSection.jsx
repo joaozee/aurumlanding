@@ -43,7 +43,7 @@ const features = [
 
 export default function FeaturesSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <section ref={ref} id="features" style={{ position: "relative", zIndex: 0 }} className="bg-black py-28 px-6">
@@ -67,7 +67,7 @@ export default function FeaturesSection() {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i + 0.2 }}
+              transition={{ duration: 0.5, delay: 0.08 * i + 0.2 }}
               className={`group relative bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 hover:border-[#D4AF37]/30 transition-all duration-500 flex flex-col ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
             >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#D4AF37]/0 to-transparent group-hover:from-[#D4AF37]/5 transition-all duration-500" />
@@ -78,7 +78,7 @@ export default function FeaturesSection() {
                   <feature.Icon className="w-5 h-5 text-[#D4AF37]" strokeWidth={1.5} />
                 </div>
                 {feature.badge && (
-                  <span className="text-[10px] font-medium tracking-wide text-[#D4AF37]/70 border border-[#D4AF37]/20 px-2.5 py-1 rounded-full bg-[#D4AF37]/5">
+                  <span className="text-xs font-medium tracking-wide text-[#D4AF37]/70 border border-[#D4AF37]/20 px-2.5 py-1 rounded-full bg-[#D4AF37]/5">
                     {feature.badge}
                   </span>
                 )}
@@ -86,7 +86,7 @@ export default function FeaturesSection() {
 
               <p className="text-[#D4AF37]/60 text-xs font-medium tracking-widest uppercase mb-2">{feature.tag}</p>
               <h3 className="text-white font-semibold text-lg mb-3 leading-snug">{feature.title}</h3>
-              <p className="text-[#BFBFBF] text-sm leading-relaxed">{feature.description}</p>
+              <p className="text-[#BFBFBF] text-sm md:text-base leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>

@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 const problems = [
   "Não sabe para onde o dinheiro vai todo mês",
@@ -10,19 +8,17 @@ const problems = [
 ];
 
 export default function ProblemSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 0 }} className="bg-[#0E0E0E] py-20 md:py-28 px-6">
+    <section style={{ position: "relative", zIndex: 0 }} className="bg-[#0E0E0E] py-20 md:py-28 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <span className="text-[#D4AF37] text-xs tracking-widest uppercase">O Problema</span>
+          <span className="text-[#D4AF37] text-xs md:text-sm tracking-widest uppercase">O Problema</span>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white leading-tight">
             Gerenciar dinheiro<br />
             <span className="text-[#D4AF37]">não é fácil.</span>
@@ -37,8 +33,9 @@ export default function ProblemSection() {
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i + 0.3 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.08 * i }}
               className="flex items-center gap-5 bg-[#1C1C1C] border border-white/5 rounded-2xl px-6 py-5"
             >
               <div className="w-2 h-2 rounded-full bg-[#D4AF37] flex-shrink-0" />
@@ -49,8 +46,9 @@ export default function ProblemSection() {
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-12 text-center text-[#D4AF37] text-xl font-semibold"
         >
           É hora de mudar isso.

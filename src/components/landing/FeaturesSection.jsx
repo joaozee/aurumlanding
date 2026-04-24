@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 import { BarChart2, Briefcase, GraduationCap, Users, TrendingUp } from "lucide-react";
 
 const features = [
@@ -42,19 +40,17 @@ const features = [
 ];
 
 export default function FeaturesSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-
   return (
-    <section ref={ref} id="features" style={{ position: "relative", zIndex: 0 }} className="bg-black py-28 px-6">
+    <section id="features" style={{ position: "relative", zIndex: 0 }} className="bg-black py-20 md:py-28 px-6">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          className="text-center mb-16 md:mb-20"
         >
-          <span className="text-[#D4AF37] text-xs tracking-widest uppercase">Funcionalidades</span>
+          <span className="text-[#D4AF37] text-xs md:text-sm tracking-widest uppercase">Funcionalidades</span>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white leading-tight">
             O que o Aurum vai<br />
             <span className="text-[#D4AF37]">fazer por você</span>
@@ -66,8 +62,9 @@ export default function FeaturesSection() {
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.08 * i + 0.2 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.08 * i }}
               className={`group relative bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 hover:border-[#D4AF37]/30 transition-all duration-500 flex flex-col ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
             >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#D4AF37]/0 to-transparent group-hover:from-[#D4AF37]/5 transition-all duration-500" />
@@ -84,7 +81,7 @@ export default function FeaturesSection() {
                 )}
               </div>
 
-              <p className="text-[#D4AF37]/60 text-xs font-medium tracking-widest uppercase mb-2">{feature.tag}</p>
+              <p className="text-[#D4AF37]/60 text-xs md:text-sm font-medium tracking-widest uppercase mb-2">{feature.tag}</p>
               <h3 className="text-white font-semibold text-lg mb-3 leading-snug">{feature.title}</h3>
               <p className="text-[#BFBFBF] text-sm md:text-base leading-relaxed">{feature.description}</p>
             </motion.div>

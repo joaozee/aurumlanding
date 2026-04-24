@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AurumLogo from "./AurumLogo";
 
-// v2 - fixed nav links
 const LINKS = [
   { label: "Home", href: "#top" },
   { label: "Funcionalidades", href: "#features" },
@@ -37,15 +36,17 @@ export default function NavBar({ onCTAClick }) {
     }
   };
 
+  const navBtnClass = "text-[#BFBFBF] hover:text-[#D4AF37] text-sm transition-colors duration-200 whitespace-nowrap outline-none focus:outline-none focus-visible:outline-none";
+
   return (
     <>
       <header
         style={{ zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0, height: "64px", backgroundColor: "#000000", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none" }}
       >
         <div style={{ position: "relative", zIndex: 1, backgroundColor: "#000000", height: "100%" }} className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo — h-7 exibe o wordmark completo, não o selo */}
           <div className="flex-shrink-0">
-            <AurumLogo className="h-8" />
+            <AurumLogo className="h-7" />
           </div>
 
           {/* Desktop links */}
@@ -54,7 +55,7 @@ export default function NavBar({ onCTAClick }) {
               <button
                 key={link.label}
                 onClick={() => handleLink(link.href)}
-                className="text-[#BFBFBF] hover:text-[#D4AF37] text-sm transition-colors duration-200 whitespace-nowrap"
+                className={navBtnClass}
               >
                 {link.label}
               </button>
@@ -64,7 +65,7 @@ export default function NavBar({ onCTAClick }) {
           {/* Desktop CTA */}
           <button
             onClick={onCTAClick}
-            className="hidden lg:block bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 py-3 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px]"
+            className="hidden lg:flex items-center bg-[#D4AF37] hover:bg-[#B8860B] text-black text-sm font-semibold px-5 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] outline-none focus:outline-none"
           >
             Entrar na lista →
           </button>
@@ -72,7 +73,7 @@ export default function NavBar({ onCTAClick }) {
           {/* Mobile CTA */}
           <button
             onClick={onCTAClick}
-            className="lg:hidden bg-[#D4AF37] hover:bg-[#B8860B] text-black text-xs font-semibold px-3.5 py-2 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0"
+            className="lg:hidden bg-[#D4AF37] hover:bg-[#B8860B] text-black text-xs font-semibold px-3.5 py-2 rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0 outline-none focus:outline-none"
           >
             Lista →
           </button>
@@ -81,7 +82,7 @@ export default function NavBar({ onCTAClick }) {
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
-            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
+            className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 outline-none focus:outline-none"
           >
             <motion.span
               animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -124,7 +125,7 @@ export default function NavBar({ onCTAClick }) {
               className="w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 lg:hidden flex flex-col"
             >
               <div className="px-8 pt-8 pb-6 border-b border-white/5">
-                <AurumLogo className="h-8" />
+                <AurumLogo className="h-7" />
               </div>
               <nav className="flex flex-col px-8 py-8 gap-2 flex-1">
                 {LINKS.map((link, i) => (
@@ -134,7 +135,7 @@ export default function NavBar({ onCTAClick }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * i }}
                     onClick={() => handleLink(link.href)}
-                    className="text-left text-[#BFBFBF] hover:text-[#D4AF37] text-base py-3 border-b border-white/5 transition-colors duration-200"
+                    className="text-left text-[#BFBFBF] hover:text-[#D4AF37] text-base py-3 border-b border-white/5 transition-colors duration-200 outline-none focus:outline-none"
                   >
                     {link.label}
                   </motion.button>
@@ -143,7 +144,7 @@ export default function NavBar({ onCTAClick }) {
               <div className="px-8 pb-10">
                 <button
                   onClick={() => { setOpen(false); onCTAClick?.(); }}
-                  className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-sm py-3.5 rounded-xl transition-all duration-200"
+                  className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-sm py-3.5 rounded-xl transition-all duration-200 outline-none focus:outline-none"
                 >
                   Entrar na lista de espera →
                 </button>

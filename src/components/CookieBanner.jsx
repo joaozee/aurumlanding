@@ -9,7 +9,7 @@ const DEFAULT_PREFS = {
 
 function ShieldIcon() {
   return (
-    <svg width="38" height="38" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="32" height="32" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M11 2 L4 5 L4 11 C4 15.4 7 19.2 11 20.5 C15 19.2 18 15.4 18 11 L18 5 Z" fill="rgba(212,175,55,0.15)" stroke="#D4AF37" strokeWidth="1.2" strokeLinejoin="round"/>
       <rect x="8" y="10" width="6" height="5" rx="1" fill="#D4AF37" fillOpacity="0.9"/>
       <path d="M9 10 L9 8.5 C9 7.1 13 7.1 13 8.5 L13 10" stroke="#D4AF37" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
@@ -45,7 +45,7 @@ function CategoryRow({ icon, title, count, description, checked, onChange, disab
           </div>
           <button
             onClick={onToggleExpand}
-            className="text-white/40 text-xs hover:text-white/60 transition-colors mt-0.5 flex items-center gap-1"
+            className="text-white/40 text-xs hover:text-white/60 transition-colors mt-0.5 flex items-center gap-1 outline-none"
           >
             Mostrar mais
             <span className={`transition-transform ${expanded ? "rotate-180" : ""}`}>›</span>
@@ -115,51 +115,53 @@ export default function CookieBanner() {
 
   return (
     <>
-      {/* Banner principal */}
+      {/* Banner compacto — fixo no canto inferior direito (desktop) / inferior full-width (mobile) */}
       <AnimatePresence>
         {visible && !showModal && (
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
-            transition={{ duration: 0.4 }}
-            className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-lg z-50"
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-sm z-[9990]"
           >
-            <div className="bg-[#0B1120] border border-white/10 rounded-2xl p-6 shadow-2xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+            <div className="bg-[#0B1120] border border-white/10 rounded-2xl p-4 md:p-5 shadow-2xl">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="flex-shrink-0 mt-0.5">
                   <ShieldIcon />
                 </div>
-                <span className="text-[#D4AF37] font-semibold text-base">Controle sua privacidade</span>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[#D4AF37] font-semibold text-sm block">Controle sua privacidade</span>
+                  <p className="text-white/60 text-xs leading-relaxed mt-1">
+                    Usamos cookies para melhorar sua experiência.{" "}
+                    <a href="/politica-de-privacidade" className="text-[#D4AF37]/80 underline underline-offset-2 hover:text-[#D4AF37]">
+                      Saiba mais
+                    </a>
+                  </p>
+                </div>
               </div>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">
-                A Aurum utiliza cookies para otimizar sua experiência, personalizar conteúdos e analisar o desempenho do site. Você pode ajustar suas preferências a qualquer momento clicando em "Minhas opções".
-              </p>
-              <div className="flex gap-3 text-sm mb-5">
-                <a href="/politica-de-privacidade" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#B8960B]">
-                  Política de Privacidade
-                </a>
-              </div>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="flex-1 py-2.5 text-sm text-white/60 border border-white/10 rounded-xl hover:border-white/20 transition-colors"
-                >
-                  Minhas opções
-                </button>
+
+              {/* 2 botões principais + link de preferências */}
+              <div className="flex gap-2">
                 <button
                   onClick={rejectAll}
-                  className="flex-1 py-2.5 text-sm text-white/60 border border-white/10 rounded-xl hover:border-white/20 transition-colors"
+                  className="flex-1 min-h-[40px] text-sm text-white/60 border border-white/10 rounded-xl hover:border-white/20 transition-colors whitespace-nowrap outline-none"
                 >
                   Rejeitar
                 </button>
                 <button
                   onClick={acceptAll}
-                  className="flex-1 py-2.5 text-sm bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold rounded-xl transition-colors"
+                  className="flex-1 min-h-[40px] text-sm bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold rounded-xl transition-colors whitespace-nowrap outline-none"
                 >
                   Aceitar
                 </button>
               </div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="w-full mt-2 py-1.5 text-xs text-white/30 hover:text-white/50 transition-colors outline-none"
+              >
+                Personalizar preferências ↗
+              </button>
             </div>
           </motion.div>
         )}
@@ -172,7 +174,7 @@ export default function CookieBanner() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            className="fixed inset-0 z-[9991] flex items-center justify-center px-4"
             style={{ background: "rgba(0,0,0,0.7)" }}
           >
             <motion.div
@@ -180,21 +182,21 @@ export default function CookieBanner() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="bg-[#0B1120] border border-white/10 rounded-2xl w-full max-w-sm shadow-2xl"
+              className="bg-[#0B1120] border border-white/10 rounded-2xl w-full max-w-sm shadow-2xl max-h-[85vh] flex flex-col"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-5 border-b border-white/5">
+              <div className="flex items-center justify-between p-5 border-b border-white/5 flex-shrink-0">
                 <span className="text-white font-semibold text-base">Quem pode usar seus cookies?</span>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 transition-colors text-sm"
+                  className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/60 transition-colors text-sm outline-none"
                 >
                   ✕
                 </button>
               </div>
 
-              {/* Categorias */}
-              <div className="px-5">
+              {/* Categorias — scroll interno se necessário */}
+              <div className="px-5 overflow-y-auto flex-1">
                 <CategoryRow
                   icon="🛡️"
                   title="Necessários"
@@ -231,16 +233,16 @@ export default function CookieBanner() {
               </div>
 
               {/* Botões */}
-              <div className="flex gap-3 p-5 border-t border-white/5">
+              <div className="flex gap-3 p-5 border-t border-white/5 flex-shrink-0">
                 <button
                   onClick={rejectAll}
-                  className="flex-1 py-2.5 text-sm text-white/60 border border-white/10 rounded-xl hover:border-white/20 transition-colors"
+                  className="flex-1 min-h-[44px] text-sm text-white/60 border border-white/10 rounded-xl hover:border-white/20 transition-colors outline-none"
                 >
                   Rejeitar
                 </button>
                 <button
                   onClick={saveOptions}
-                  className="flex-1 py-2.5 text-sm bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold rounded-xl transition-colors"
+                  className="flex-1 min-h-[44px] text-sm bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold rounded-xl transition-colors outline-none"
                 >
                   Salvar opções
                 </button>

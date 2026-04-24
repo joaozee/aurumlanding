@@ -14,7 +14,7 @@ export default function HeroSection({ onCTAClick }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mt-8 mb-6"
+        className="mb-6"
       >
         <AurumLogo className="h-24 md:h-36 max-w-2xl" loading="eager" />
       </motion.div>
@@ -61,12 +61,10 @@ export default function HeroSection({ onCTAClick }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
         onClick={onCTAClick}
-        className="mt-8 bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-base px-10 py-4 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/40 hover:scale-105"
+        className="mt-8 bg-[#D4AF37] hover:bg-[#B8860B] text-black font-semibold text-base px-10 py-4 rounded-full transition-all duration-300 tracking-wide shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/40 hover:scale-105 outline-none focus:outline-none"
       >
         Quero entrar na lista de espera →
       </motion.button>
-
-
 
       {/* Scroll indicator */}
       <motion.div

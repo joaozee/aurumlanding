@@ -19,13 +19,13 @@ export default function Home() {
     <div className="bg-black min-h-screen font-sans antialiased">
       <NavBar onCTAClick={scrollToForm} />
       <div style={{ position: "relative", zIndex: 0, isolation: "isolate" }}>
-      <HeroSection onCTAClick={scrollToForm} />
-      <ProblemSection />
-      <div id="features"><FeaturesSection /></div>
-      <div id="audience"><AudienceSection /></div>
-      <CTABanner onCTAClick={scrollToForm} />
-      <WaitlistForm formRef={formRef} />
-      <FooterSection />
+        <HeroSection onCTAClick={scrollToForm} />
+        <ProblemSection />
+        <FeaturesSection />
+        <AudienceSection />
+        <CTABanner onCTAClick={scrollToForm} />
+        <WaitlistForm formRef={formRef} />
+        <FooterSection />
       </div>
     </div>
   );

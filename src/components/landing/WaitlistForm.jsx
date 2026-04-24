@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
@@ -74,8 +74,6 @@ function validateEmail(email) {
 
 export default function WaitlistForm({ formRef }) {
   const navigate = useNavigate();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   const [honeypot, setHoneypot] = useState("");
 
@@ -162,7 +160,6 @@ export default function WaitlistForm({ formRef }) {
       }
 
       if (res.status === 409) {
-        // Email duplicado — redireciona silenciosamente
         navigate(createPageUrl("Obrigado"));
         return;
       }
@@ -181,15 +178,16 @@ export default function WaitlistForm({ formRef }) {
   };
 
   return (
-    <section ref={sectionRef} id="waitlist-form" style={{ position: "relative", zIndex: 0 }} className="bg-black py-28 px-6">
+    <section id="waitlist-form" style={{ position: "relative", zIndex: 0 }} className="bg-black py-20 md:py-28 px-6">
       <div className="max-w-2xl mx-auto" ref={formRef}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-14"
         >
-          <span className="text-[#D4AF37] text-xs tracking-widest uppercase">Lista de Espera</span>
+          <span className="text-[#D4AF37] text-xs md:text-sm tracking-widest uppercase">Lista de Espera</span>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white leading-tight">
             Garanta seu<br />
             <span className="text-[#D4AF37]">acesso antecipado</span>
@@ -201,8 +199,9 @@ export default function WaitlistForm({ formRef }) {
 
         <motion.form
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
           onSubmit={handleSubmit}
           noValidate
           className="bg-[#0E0E0E] border border-white/5 rounded-3xl p-8 md:p-10 space-y-8"

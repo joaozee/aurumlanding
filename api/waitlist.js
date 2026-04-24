@@ -133,18 +133,6 @@ function buildEmailHtml(nome) {
   <tr><td style="padding:0 48px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#1f1c14,transparent);"></div></td></tr>
 
   <tr>
-    <td style="padding:36px 48px;text-align:center;">
-      <p style="margin:0 0 8px;font-size:12px;color:#555;line-height:1.8;">O próximo passo é entrar no nosso grupo exclusivo de Cofundadores, onde você acompanha o desenvolvimento do app em tempo real e tem voz ativa no que estamos construindo.</p>
-      <p style="margin:0 0 28px;font-size:12px;color:#555;">Junte-se a quem chegou primeiro.</p>
-      <a href="#LINK_GRUPO_VIP" style="display:inline-block;background:#C9A84C;color:#080808;font-family:Georgia,serif;font-size:11px;font-weight:400;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 48px;">
-        Entrar no Grupo VIP
-      </a>
-    </td>
-  </tr>
-
-  <tr><td style="padding:0 48px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#1f1c14,transparent);"></div></td></tr>
-
-  <tr>
     <td style="padding:32px 48px 36px;text-align:center;">
       <p style="margin:0;font-size:14px;color:#444;font-style:italic;line-height:1.9;">"A riqueza real começa quando decidimos construir algo maior que nós mesmos, e quando fazemos isso juntos, o resultado é inevitável."</p>
       <p style="margin:16px 0 0;font-size:11px;color:#3a3a3a;letter-spacing:2px;">Equipe Aurum</p>

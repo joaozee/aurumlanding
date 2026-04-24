@@ -46,7 +46,7 @@ export default function NavBar({ onCTAClick }) {
         <div style={{ position: "relative", zIndex: 1, backgroundColor: "#000000", height: "100%" }} className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo — h-7 exibe o wordmark completo, não o selo */}
           <div className="flex-shrink-0">
-            <AurumLogo className="h-7" />
+            <AurumLogo className="h-8" variant="selo" />
           </div>
 
           {/* Desktop links */}
@@ -125,7 +125,7 @@ export default function NavBar({ onCTAClick }) {
               className="w-72 bg-[#0A0A0A] border-l border-[#D4AF37]/10 lg:hidden flex flex-col"
             >
               <div className="px-8 pt-8 pb-6 border-b border-white/5">
-                <AurumLogo className="h-7" />
+                <AurumLogo className="h-8" variant="selo" />
               </div>
               <nav className="flex flex-col px-8 py-8 gap-2 flex-1">
                 {LINKS.map((link, i) => (

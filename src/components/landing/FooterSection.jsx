@@ -38,7 +38,7 @@ export default function FooterSection() {
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <AurumLogo className="h-7" loading="lazy" />
+          <AurumLogo className="h-8" variant="selo" loading="lazy" />
 
           {/* Links sociais */}
           <div className="flex items-center gap-4">

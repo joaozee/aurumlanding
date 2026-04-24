@@ -28,7 +28,7 @@ export default function Obrigado() {
             transition={{ duration: 0.7 }}
             className="mb-10"
           >
-            <AurumLogo className="h-16 md:h-24" loading="eager" />
+            <AurumLogo className="h-24 md:h-36" loading="eager" />
           </motion.div>
 
           {/* Badge "na lista" */}

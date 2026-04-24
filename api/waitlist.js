@@ -257,9 +257,9 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Erro ao salvar. Tente novamente." });
   }
 
-  // Envia email de boas-vindas (não bloqueia a resposta)
+  // Envia email de boas-vindas
   const firstName = full_name.split(" ")[0];
-  sendWelcomeEmail(email.toLowerCase(), firstName);
+  await sendWelcomeEmail(email.toLowerCase(), firstName);
 
   return res.status(200).json({ success: true });
 }

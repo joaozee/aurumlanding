@@ -18,6 +18,7 @@ export default function AurumLogo({ className = "h-12", variant = "auto", loadin
       alt="Aurum — Grupo Fundado em Valor"
       loading={loading}
       className={`${className} w-auto object-contain block`}
+      style={{ mixBlendMode: "screen" }}
     />
   );
 }

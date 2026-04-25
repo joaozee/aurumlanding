@@ -68,6 +68,57 @@ function RadioGroup({ label, options, value, onChange, error }) {
   );
 }
 
+function MultiSelectGroup({ label, sublabel, options, values, onChange, max, error }) {
+  const toggle = (opt) => {
+    if (values.includes(opt)) {
+      onChange(values.filter((v) => v !== opt));
+    } else {
+      if (values.length >= max) return;
+      onChange([...values, opt]);
+    }
+  };
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <p className="text-[#BFBFBF] text-sm font-medium">{label}</p>
+        {sublabel && <p className="text-[#BFBFBF]/50 text-xs mt-0.5">{sublabel}</p>}
+      </div>
+      <div className="grid gap-2">
+        {options.map((opt) => {
+          const selected = values.includes(opt);
+          const disabled = !selected && values.length >= max;
+          return (
+            <label
+              key={opt}
+              onClick={() => !disabled && toggle(opt)}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
+                disabled
+                  ? "border-white/5 bg-[#1C1C1C] text-white/20 cursor-not-allowed"
+                  : selected
+                  ? "border-[#D4AF37] bg-[#D4AF37]/10 text-white cursor-pointer"
+                  : "border-white/10 bg-[#1C1C1C] text-[#BFBFBF] hover:border-white/20 cursor-pointer"
+              }`}
+            >
+              <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                selected ? "border-[#D4AF37] bg-[#D4AF37]" : disabled ? "border-white/10" : "border-white/30"
+              }`}>
+                {selected && (
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                    <path d="M1 4L3.5 6.5L9 1" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
+              <span className="text-sm">{opt}</span>
+            </label>
+          );
+        })}
+      </div>
+      {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
+    </div>
+  );
+}
+
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -85,7 +136,7 @@ export default function WaitlistForm({ formRef }) {
     occupation: "",
     occupation_other: "",
     already_invests: "",
-    main_goal: "",
+    main_goals: [],
     wants_early_access: null,
   });
 
@@ -109,7 +160,7 @@ export default function WaitlistForm({ formRef }) {
     if (!form.monthly_income) newErrors.monthly_income = "Selecione sua faixa de renda.";
     if (!form.occupation) newErrors.occupation = "Selecione sua ocupação.";
     if (!form.already_invests) newErrors.already_invests = "Selecione uma opção.";
-    if (!form.main_goal) newErrors.main_goal = "Selecione seu objetivo.";
+    if (form.main_goals.length === 0) newErrors.main_goals = "Selecione ao menos um objetivo.";
     if (form.wants_early_access === null) newErrors.wants_early_access = "Selecione uma opção.";
     if (!acceptedPrivacy) newErrors.privacy = "Você precisa aceitar a Política de Privacidade para continuar.";
     return newErrors;
@@ -145,7 +196,7 @@ export default function WaitlistForm({ formRef }) {
           monthly_income: form.monthly_income,
           occupation: occupationValue,
           already_invests: form.already_invests,
-          main_goal: form.main_goal,
+          main_goal: form.main_goals.join(", "),
           wants_early_access: form.wants_early_access === "Sim",
           honeypot,
         }),
@@ -301,13 +352,15 @@ export default function WaitlistForm({ formRef }) {
             />
           </div>
 
-          <div data-error={!!errors.main_goal}>
-            <RadioGroup
+          <div data-error={!!errors.main_goals}>
+            <MultiSelectGroup
               label="Qual seu objetivo financeiro principal hoje? *"
+              sublabel="Escolha até 2 opções"
               options={GOAL_OPTIONS}
-              value={form.main_goal}
-              onChange={set("main_goal")}
-              error={errors.main_goal}
+              values={form.main_goals}
+              onChange={set("main_goals")}
+              max={2}
+              error={errors.main_goals}
             />
           </div>
 

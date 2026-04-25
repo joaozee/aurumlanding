@@ -124,7 +124,7 @@ export default function DataRequestForm() {
         >
           <h2 className="text-[#D4AF37] font-semibold text-base mb-1">Exercer Direito de Titular</h2>
           <p className="text-[#BFBFBF] text-sm mb-6">
-            Preencha o formulário abaixo para exercer seus direitos conforme a LGPD. Entraremos em contato em até 15 dias úteis.
+            Preencha o formulário abaixo para exercer seus direitos conforme a LGPD. Entraremos em contato em até 15 dias.
           </p>
 
           {status === "success" ? (
@@ -135,7 +135,7 @@ export default function DataRequestForm() {
                 </svg>
               </div>
               <p className="text-white font-semibold">Solicitação enviada!</p>
-              <p className="text-[#BFBFBF] text-sm">Entraremos em contato pelo e-mail informado em até 15 dias úteis.</p>
+              <p className="text-[#BFBFBF] text-sm">Entraremos em contato pelo e-mail informado em até 15 dias.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-5">

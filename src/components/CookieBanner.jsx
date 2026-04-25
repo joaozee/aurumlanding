@@ -70,7 +70,6 @@ function CategoryRow({ icon, title, count, description, checked, onChange, disab
   );
 }
 
-// Widget flutuante com logo Aurum (A estilizado)
 function AurumCookieWidget({ onClick }) {
   return (
     <motion.button
@@ -85,28 +84,18 @@ function AurumCookieWidget({ onClick }) {
     >
       <div
         style={{
-          width: 48,
-          height: 48,
-          background: "#111",
-          border: "2px solid #C9A827",
+          width: 52,
+          height: 52,
           borderRadius: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0 4px 16px rgba(201,168,39,0.3)",
+          overflow: "hidden",
+          boxShadow: "0 4px 16px rgba(201,168,39,0.35)",
         }}
       >
-        {/* Logo Aurum — letra A */}
-        <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
-          <defs>
-            <linearGradient id="aurum-gold-widget" x1="13" y1="2" x2="13" y2="24">
-              <stop offset="0%" stopColor="#f5d060" />
-              <stop offset="100%" stopColor="#c9a227" />
-            </linearGradient>
-          </defs>
-          <polygon points="13,2 22,24 18,24 13,9 8,24 4,24" fill="url(#aurum-gold-widget)" />
-          <rect x="7.5" y="16" width="11" height="2.5" fill="#111" />
-        </svg>
+        <img
+          src="/aurum-selo.png"
+          alt="Grupo Aurum"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
       </div>
       <span
         style={{
@@ -137,7 +126,6 @@ export default function CookieBanner() {
     if (!consent) {
       setVisible(true);
     } else {
-      // Já consentiu — mostrar widget flutuante
       setShowWidget(true);
       try {
         const saved = JSON.parse(consent);
@@ -172,10 +160,6 @@ export default function CookieBanner() {
   const saveOptions = () => saveConsent(prefs);
 
   const toggleExpand = (key) => setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
-
-  const handleWidgetClick = () => {
-    setShowModal(true);
-  };
 
   return (
     <>
@@ -241,7 +225,7 @@ export default function CookieBanner() {
               zIndex: 9989,
             }}
           >
-            <AurumCookieWidget onClick={handleWidgetClick} />
+            <AurumCookieWidget onClick={() => setShowModal(true)} />
           </div>
         )}
       </AnimatePresence>
@@ -335,17 +319,12 @@ export default function CookieBanner() {
               </div>
 
               {/* Rodapé Grupo Aurum */}
-              <div className="text-center pb-4 flex items-center justify-center gap-1.5">
-                <svg width="12" height="12" viewBox="0 0 26 26" fill="none">
-                  <defs>
-                    <linearGradient id="aurum-gold-modal" x1="13" y1="2" x2="13" y2="24">
-                      <stop offset="0%" stopColor="#f5d060" />
-                      <stop offset="100%" stopColor="#c9a227" />
-                    </linearGradient>
-                  </defs>
-                  <polygon points="13,2 22,24 18,24 13,9 8,24 4,24" fill="url(#aurum-gold-modal)" />
-                  <rect x="7.5" y="16" width="11" height="2.5" fill="#0B1120" />
-                </svg>
+              <div className="text-center pb-4 flex items-center justify-center gap-2">
+                <img
+                  src="/aurum-selo.png"
+                  alt="Grupo Aurum"
+                  style={{ width: 16, height: 16, borderRadius: "50%", objectFit: "cover" }}
+                />
                 <span style={{ color: "#444", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>
                   Grupo Aurum
                 </span>
